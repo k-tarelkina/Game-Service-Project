@@ -1,0 +1,27 @@
+{
+  "name": "game-service-project",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": "14.x",
+    "npm": "7.x"
+  },
+  "scripts": {
+    "ng": "ng",
+    "preinstall": "npm install -g @angular/cli",
+    "start": "node ./bin/www",
+    "heroku-prebuild": "cd ./game-service-ui && npm install && cd ..",
+    "heroku-postbuild": "cd ./game-service-ui && npm run build && cd ..",
+    "lint": "cd ./game-service-ui && ng lint",
+    "e2e": "cd ./game-service-ui && ng e2e"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

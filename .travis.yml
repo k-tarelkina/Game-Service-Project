@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '14'
+before_install:
+- npm install -g @angular/cli
+install: npm install && cd ./game-service-ui && npm install && cd ..
+branches:
+  only:
+  - master
+deploy:
+  provider: heroku
+  app: game-service-app
+  api_key:
+    secure: Qu3vfLR68gc7hU0b3dE+uB4leRMAHC+WbeLxUGsBuSShZ9esHTFvle03Vk58DzWGjGFTipd/UgCRGWWmxsvB528JOQLtKooCnUChLVPlgQl3bKgyDbh0gH59msW+Y/OdflotRk87bjzKPJvsCpy8DNK3MLC77S1qzobpw3FwyU58tzZW4poPPSAGKG2JpHUxokQ4OYAqO+swabgm9JptjVCITJftmgJPAJL+slUT0Nx6hyIHNXS0+vFqAPzsvTxFdgQEYXrXjuf1vmp1Aq4rb+pdlOzjYScBwO+cSDDtx3DFekPxtH4unbB2CCiiy1xQNoGT4pjWxfbLElhvPqaQJ8sFpjm6DuqzxLyRNqcUwkB44gLh1nOcLsUGTQ8cATWJG2pEg6NpDkHw5XBXD/aG+yv5tvCT9YwMXZ3kkn6JSbYWXQaNGUtcK6aLoqxaRsPGoaCCoiCFG4JsvEnbhuUzL2Z0aMyJiv9ztTK0zEBfuAV1RZwTGX3b4RJnrohx1sbQkU0ZK4EcY3foWesQQJfX1xGkpKkG/cj85Fmk+2PVfHYSlhLvJSDCmbqeXbANpn5Xvyw0pER/dK28EzqTGh4hTjXgUkoJNLgDlPSxajFmbSfBge/SjGol8kvmB4uWjKS9tMrqyM46A/ZTin4M4K8A/nMPIa5ODCvpr6AuReSgHJQ=
+  on:
+    branch: master
