@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {ObjectId} = mongoose;
 
-const Friends = mongoose.model('Friends', {
+const FriendsRecord = mongoose.model('FriendsRecord', {
     selfId: {
         type: ObjectId,
         required: true
@@ -9,4 +9,4 @@ const Friends = mongoose.model('Friends', {
     friendsId: [ObjectId]
 });
 
-module.exports = {Friends};
+module.exports = {FriendsRecord};

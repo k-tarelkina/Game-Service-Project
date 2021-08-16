@@ -1,16 +1,23 @@
 
-const {Friends} = require('../models/friends_model');
+const {FriendsRecord} = require('../models/friends_model');
 
 const getFriendsByUserId = async (id) => {
-    return Friends.find({selfId: id});
+    return FriendsRecord.find({selfId: id});
 };
 
 const addFriendToUser = async (selfId, friendId) => {
-    await Friends.findOneAndUpdate({selfId}, { $push: {friendsId: friendId}});
+    const self = FriendsRecord.findOne({selfId});
+    if (!self) {
+        const newRecord = new FriendsRecord({selfId, friendsId: [friendId]});
+        await newRecord.save();
+    } else {
+        self.friendsId.push(friendId);
+        await self.save();
+    }
 }
 
 const deleteFriendForUser = async (selfId, friendId) => {
-    await Friends.findOneAndUpdate({selfId}, { $pull: {friendsId: friendId}});
+    await FriendsRecord.findOneAndUpdate({selfId}, { $pull: {friendsId: friendId}});
 }
 
 module.exports = {

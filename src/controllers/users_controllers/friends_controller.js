@@ -8,7 +8,7 @@ const {asyncWrapper} = require('../../utils/async_wrapper');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('', asyncWrapper(async (req, res) => {
+router.get('/', asyncWrapper(async (req, res) => {
     const users = await getFriendsByUserId(req.user._id);
     res.status(200).json({users});
 }));

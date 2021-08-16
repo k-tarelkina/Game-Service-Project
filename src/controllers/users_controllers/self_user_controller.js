@@ -8,18 +8,18 @@ const {asyncWrapper} = require('../../utils/async_wrapper');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/me', asyncWrapper(async (req, res) => {
+router.get('/', asyncWrapper(async (req, res) => {
     const user = await getUserById(req.user._id);
     res.status(200).json({user});
 }));
 
-router.delete('/me', asyncWrapper(async (req, res) => {
+router.delete('/', asyncWrapper(async (req, res) => {
     const {user} = req;
     await deleteUserById(user._id);
     res.status(200).json({message: 'Success'});
 }));
 
-router.patch('/me', asyncWrapper(async (req, res) => {
+router.patch('/', asyncWrapper(async (req, res) => {
     const {user} = req;
     await updateUserById(user._id, req.body);
     res.status(200).json({message: 'Success'});
