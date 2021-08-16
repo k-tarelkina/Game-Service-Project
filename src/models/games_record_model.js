@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const {ObjectId} = mongoose;
 
-const FriendsRecord = mongoose.model('FriendsRecord', {
+const GamesRecord = mongoose.model('Games_Record', {
     selfId: {
         type: ObjectId,
         required: true,
         unique: true
     },
-    friendsId: {
+    gamesId: {
         type: [ObjectId],
         default: []
     }
 });
 
-module.exports = {FriendsRecord};
+module.exports = {GamesRecord};

@@ -1,5 +1,5 @@
 const {getUsersByIds} = require("./users_getter_service");
-const {FriendsRecord} = require('../../models/friends_model');
+const {FriendsRecord} = require('../../models/friends_record_model');
 
 const getUserRecordById = async (id) => {
     return FriendsRecord.findOne({selfId: id});

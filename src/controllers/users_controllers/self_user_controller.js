@@ -1,4 +1,5 @@
 const express = require('express');
+const {gamesRouter} = require("./user_games_controller");
 const {friendsRouter} = require("./friends_controller");
 const {getUserById} = require('../../services/users_services/users_getter_service');
 const {
@@ -10,6 +11,7 @@ const {asyncWrapper} = require('../../utils/async_wrapper');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 router.use('/friends', friendsRouter);
+router.use('/games', gamesRouter);
 
 router.get('/', asyncWrapper(async (req, res) => {
     const user = await getUserById(req.user._id);
