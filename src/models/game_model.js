@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 
+const TAGS = ['INDIE', 'ACTION', 'ADVENTURE'];
+
+const Tag = new mongoose.Schema({
+    value: {
+        type: String,
+        uppercase: true,
+        enum : TAGS
+    }
+});
+
 const Game = mongoose.model('Game', {
     name: {
         type: String,
@@ -17,6 +27,9 @@ const Game = mongoose.model('Game', {
     created_date: {
         type: Date,
         default: Date.now(),
+    },
+    tags: {
+        type: [Tag]
     }
 });
 
