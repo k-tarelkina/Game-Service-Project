@@ -1,3 +1,4 @@
+const {encryptPassword} = require("../utils/password_processing");
 const {User} = require('../models/user_model');
 const {InvalidCredentialsError} = require('../utils/errors');
 
@@ -18,6 +19,9 @@ const deleteUserById = async (id) => {
 };
 
 const updateUserById = async (id, data) => {
+    if (data.password) {
+        data.password = await encryptPassword(data.password);
+    }
     return User.updateOne({_id: id}, data);
 };
 

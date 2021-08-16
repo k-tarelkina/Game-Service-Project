@@ -10,7 +10,7 @@ const checkIfPasswordsMatch = async (plainPassword, hash) => {
 
 const encryptPassword = async (password) => {
     const saltRounds = 10;
-    return await bcrypt.hash(password, saltRounds);
+    return bcrypt.hash(password, saltRounds);
 };
 
 module.exports = {
