@@ -8,7 +8,7 @@ const formatOptions = (options) => {
         formattedOptions.name = {$regex: getSearchRegExp(name)};
     }
     if (price) {
-        formattedOptions.price = { $lte: price};
+        formattedOptions.price = {$lte: price};
     }
     if (tags) {
         formattedOptions.tags = {$in: tags};
