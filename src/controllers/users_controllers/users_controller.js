@@ -9,8 +9,8 @@ const router = express.Router();
 router.use(authMiddleware);
 
 router.use('/me', selfUserRouter);
-router.use('/friends', friendsRouter);
 
+// @TODO search by username
 module.exports = {
     usersRouter: router,
 };

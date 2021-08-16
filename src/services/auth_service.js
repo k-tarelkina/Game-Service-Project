@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const {User} = require('../models/user_model');
 const {InvalidCredentialsError} = require('../utils/errors');
-const {getUserByEmail} = require('./../services/users_service');
+const {getUserByEmail} = require('./users_services/users_getter_service');
 const {checkIfPasswordsMatch,
     encryptPassword} = require('../utils/password_processing');
 const {registrationSchema} = require('../utils/validation/auth/registration_schema');

@@ -4,9 +4,13 @@ const {ObjectId} = mongoose;
 const FriendsRecord = mongoose.model('FriendsRecord', {
     selfId: {
         type: ObjectId,
-        required: true
+        required: true,
+        unique: true
     },
-    friendsId: [ObjectId]
+    friendsId: {
+        type: [ObjectId],
+        default: []
+    }
 });
 
 module.exports = {FriendsRecord};

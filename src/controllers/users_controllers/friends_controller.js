@@ -2,7 +2,7 @@ const express = require('express');
 const {getFriendsByUserId,
     deleteFriendForUser,
     addFriendToUser,
-} = require('../../services/friends_service');
+} = require('../../services/users_services/friends_service');
 const {asyncWrapper} = require('../../utils/async_wrapper');
 
 // eslint-disable-next-line new-cap
