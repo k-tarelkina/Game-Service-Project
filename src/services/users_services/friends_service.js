@@ -7,7 +7,6 @@ const getUserRecordById = async (id) => {
 
 const getFriendsByUserId = async (id) => {
     const {friendsId} = await getUserRecordById(id);
-    console.log(friendsId);
     return getUsersByIds(friendsId);
 };
 

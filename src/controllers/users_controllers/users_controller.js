@@ -1,5 +1,6 @@
 const express = require('express');
-const {friendsRouter} = require("./friends_controller");
+const {getUsersByUsername} = require("../../services/users_services/users_getter_service");
+const {asyncWrapper} = require("../../utils/async_wrapper");
 const {selfUserRouter} = require("./self_user_controller");
 const {authMiddleware} = require('../../middlewares/auth_middleware');
 
@@ -7,10 +8,14 @@ const {authMiddleware} = require('../../middlewares/auth_middleware');
 const router = express.Router();
 
 router.use(authMiddleware);
-
 router.use('/me', selfUserRouter);
 
-// @TODO search by username
+router.get('/', asyncWrapper(async (req, res) => {
+    const {username} = req.query;
+    const users = await getUsersByUsername(req.user._id);
+    res.status(200).json({users});
+}));
+
 module.exports = {
     usersRouter: router,
 };

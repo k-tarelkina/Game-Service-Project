@@ -5,6 +5,10 @@ const getUserById = async (id) => {
     return User.findOne({_id: id});
 };
 
+const getUsersByUsername = async (username) => {
+    return User.find({username});
+}
+
 const getUsersByIds = async (ids) => {
     const users = [];
     for (const id of ids) {
@@ -25,5 +29,6 @@ const getUserByEmail = async (email) => {
 module.exports = {
     getUserById,
     getUsersByIds,
-    getUserByEmail
+    getUserByEmail,
+    getUsersByUsername
 };
