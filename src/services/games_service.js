@@ -1,8 +1,12 @@
+const {getSearchRegExp} = require("../utils/reg_exp");
 const {Game} = require('../models/game_model');
 
 const formatOptions = (options) => {
     const formattedOptions = {};
-    const {price, tags} = options;
+    const {name, price, tags} = options;
+    if (name) {
+        formattedOptions.name = {$regex: getSearchRegExp(name)};
+    }
     if (price) {
         formattedOptions.price = { $lte: price};
     }

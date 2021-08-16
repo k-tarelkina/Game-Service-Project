@@ -1,14 +1,13 @@
+const {getSearchRegExp} = require("../../utils/reg_exp");
 const {User} = require('../../models/user_model');
 const {InvalidCredentialsError} = require('../../utils/errors');
-
-const getRegExp = (value) => `.*${value}.*`;
 
 const getUserById = async (id) => {
     return User.findOne({_id: id});
 };
 
 const getUsersByUsername = async (username) => {
-    return User.find({username: {$regex: getRegExp(username)}});
+    return User.find({username: {$regex: getSearchRegExp(username)}});
 }
 
 const getUsersByIds = async (ids) => {
