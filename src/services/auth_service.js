@@ -28,7 +28,7 @@ const getUserByCredentials = async (email, password) => {
     return user;
 };
 
-const register = async (credentials) => {
+const signUp = async (credentials) => {
     await validateCredentials(credentials);
     const {email, password, username} = credentials;
     const passwordEncrypted = await encryptPassword(password);
@@ -44,12 +44,12 @@ const register = async (credentials) => {
     }
 };
 
-const login = async ({email, password}) => {
+const signIn = async ({email, password}) => {
     const user = await getUserByCredentials(email, password);
     return getTokenForUser(user);
 };
 
 module.exports = {
-    register,
-    login,
+    signUp,
+    signIn
 };
