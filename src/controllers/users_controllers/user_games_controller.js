@@ -13,13 +13,13 @@ router.get('/', asyncWrapper(async (req, res) => {
 router.put('/:gameId', asyncWrapper(async (req, res) => {
     const {gameId} = req.params;
     await addGameToUser(req.user._id, gameId);
-    res.status(200).json({message: 'The game has been added successfully'});
+    res.status(200).json({message: 'The game has been added to the library successfully'});
 }));
 
 router.delete('/:gameId', asyncWrapper(async (req, res) => {
     const {gameId} = req.params;
     await deleteUserGamesRecord(req.user._id, gameId);
-    res.status(200).json({message: 'The game has been deleted successfully'});
+    res.status(200).json({message: 'The game has been deleted from the library successfully'});
 }));
 
 module.exports = {
