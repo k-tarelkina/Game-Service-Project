@@ -13,6 +13,6 @@ class InvalidCredentialsError extends GamesServiceError {
 }
 
 module.exports = {
-    UberProjectError: GamesServiceError,
+    GamesServiceError,
     InvalidCredentialsError
 };
