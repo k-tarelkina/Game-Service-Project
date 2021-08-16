@@ -10,10 +10,6 @@ const getFriendsByUserId = async (id) => {
     return getUsersByIds(friendsId);
 };
 
-const deleteUserRecord = async (id) => {
-    await FriendsRecord.deleteOne({selfId: id});
-};
-
 const addFriendToUser = async (selfId, friendId) => {
     const self = await FriendsRecord.findOne({selfId});
     if (!self) {
@@ -28,9 +24,13 @@ const deleteFriendForUser = async (selfId, friendId) => {
     await FriendsRecord.findOneAndUpdate({selfId}, { $pull: {friendsId: friendId}});
 }
 
+const deleteUserFriendsRecord = async (id) => {
+    await FriendsRecord.deleteOne({selfId: id});
+}
+
 module.exports = {
     getFriendsByUserId,
     addFriendToUser,
     deleteFriendForUser,
-    deleteUserRecord
+    deleteUserFriendsRecord
 }
