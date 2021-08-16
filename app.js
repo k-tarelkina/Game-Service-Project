@@ -4,7 +4,7 @@ const path = require('path');
 const logger = require('morgan');
 const {GamesServiceError} = require("./src/utils/errors");
 const {authRouter} = require('./src/controllers/auth_controller');
-const {usersRouter} = require('./src/controllers/users_controller');
+const {usersRouter} = require('./src/controllers/users_controllers/users_controller');
 
 const app = express();
 
