@@ -1,12 +1,11 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const {authRouter} = require('./src/controllers/auth_controller');
+const {usersRouter} = require('./src/controllers/users_controller');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -17,6 +16,8 @@ app.use(express.static(path.join(__dirname, 'game-service-ui/dist/game-service-u
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'game-service-ui/dist/game-service-ui/index.html'))
 })
-app.use('/users', usersRouter);
+app.use('/api/auth', authRouter);
+// auth
+app.use('/api/users', usersRouter);
 
 module.exports = app;
