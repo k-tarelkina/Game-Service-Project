@@ -22,18 +22,16 @@ export class SignInFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  handleError(error: {error: { message: string }}) {
+    this.error = error.error.message;
+  }
+
   onSubmit() {
     const {email, password} = this.loginGroup.value;
     this.authService.login(email, password)
-      .pipe(
-        tap(user => console.log(user)),
-        catchError((e) => {
-          alert(JSON.stringify(e));
-          return of(e);
-        })
-      )
-      .subscribe(val => console.log(val));
-    console.log('after login')
+      .subscribe({
+        error: (e) => this.handleError(e)
+      });
   }
 
 }
