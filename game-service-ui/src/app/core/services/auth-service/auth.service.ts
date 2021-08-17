@@ -9,15 +9,15 @@ import {User} from '../../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  URL = '/api/auth';
-  LOGIN_URL = `${this.URL}/login`;
-  SIGN_UP_URL = `${this.URL}/sign_up`;
+  private URL = '/api/auth';
+  private LOGIN_URL = `${this.URL}/login`;
+  private SIGN_UP_URL = `${this.URL}/sign_up`;
 
-  user$: BehaviorSubject<User | null>;
+  private userSubject$: BehaviorSubject<User | null>;
 
   constructor(private httpService: HttpService<Partial<User> | User>,
               private router: Router) {
-    this.user$ = new BehaviorSubject(this.getUser());
+    this.userSubject$ = new BehaviorSubject(this.getUser());
   }
 
   private getUser() {
@@ -37,19 +37,27 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
+  get user$() {
+    return this.userSubject$.asObservable();
+  }
+
+  get userValue() {
+    return this.userSubject$.value;
+  }
+
   login(email: string, password: string) {
     return this.httpService.post(this.LOGIN_URL, {email, password})
       .pipe(
         map((user: Partial<User>) => {
           this.setUser(user);
-          this.user$.next(user as User);
+          this.userSubject$.next(user as User);
           return user;
       }));
   }
 
   logout() {
     this.removeUser();
-    this.user$.next(null);
+    this.userSubject$.next(null);
     this.router.navigate(['/auth/login']);
   }
 
