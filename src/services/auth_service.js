@@ -4,7 +4,8 @@ const {InvalidCredentialsError} = require('../utils/errors');
 const {getUserByEmail} = require('./users_services/users_getter_service');
 const {checkIfPasswordsMatch,
     encryptPassword} = require('../utils/password_processing');
-const {registrationSchema} = require('../utils/validation/auth/registration_schema');
+const {registrationSchema} =
+    require('../utils/validation/auth/registration_schema');
 
 const validateCredentials = async (credentials) => {
     try {
@@ -45,11 +46,12 @@ const signUp = async (credentials) => {
 };
 
 const signIn = async ({email, password}) => {
-    const user = await getUserByCredentials(email, password);
-    return getTokenForUser(user);
+    const user = (await getUserByCredentials(email, password))._doc;
+    const token = getTokenForUser(user);
+    return {...user, token};
 };
 
 module.exports = {
     signUp,
-    signIn
+    signIn,
 };
