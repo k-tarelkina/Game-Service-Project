@@ -9,9 +9,9 @@ import {User} from '../../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  URL = `${process.env.LOCAL_URL}/api/auth`;
-  LOGIN_URL = `${URL}/login`;
-  SIGN_UP_URL = `${URL}/sign_up`;
+  URL = '/api/auth';
+  LOGIN_URL = `${this.URL}/login`;
+  SIGN_UP_URL = `${this.URL}/sign_up`;
 
   user$: BehaviorSubject<User | null>;
 
@@ -38,15 +38,15 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    console.log(this.LOGIN_URL)
     return this.httpService.post(this.LOGIN_URL, {email, password})
       .pipe(
+        tap(() => console.log('pipe')),
         map((user: Partial<User>) => {
           this.setUser(user);
           this.user$.next(user as User);
           console.log(user);
           return user;
-      }))
+      }));
   }
 
   logout() {

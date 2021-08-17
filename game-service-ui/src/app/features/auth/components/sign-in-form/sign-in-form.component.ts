@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {AuthService} from "../../../../core/services/auth-service/auth.service";
 import {catchError, tap} from "rxjs/operators";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-sign-in-form',
@@ -27,9 +28,11 @@ export class SignInFormComponent implements OnInit {
       .pipe(
         tap(user => console.log(user)),
         catchError((e) => {
-        alert(e);
-        return e;
-      }));
+          alert(JSON.stringify(e));
+          return of(e);
+        })
+      )
+      .subscribe(val => console.log(val));
     console.log('after login')
   }
 
