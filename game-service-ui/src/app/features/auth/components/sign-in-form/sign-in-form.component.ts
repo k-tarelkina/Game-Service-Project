@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {AuthService} from "../../../../core/services/auth-service/auth.service";
 import {catchError, tap} from "rxjs/operators";
 import {of} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in-form',
@@ -17,7 +18,8 @@ export class SignInFormComponent implements OnInit {
 
   error: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +33,7 @@ export class SignInFormComponent implements OnInit {
     this.authService.login(email, password)
       .subscribe({
         next: (user) => {
-          this.error = null
+          this.error = null;
         },
         error: (e) => this.handleError(e)
       });
