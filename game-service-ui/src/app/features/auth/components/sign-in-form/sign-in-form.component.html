@@ -1,5 +1,5 @@
 <mat-card class="sign-in-form-container">
-  <form class="sign-in-form" [formGroup]="signInGroup">
+  <form class="sign-in-form" [formGroup]="loginGroup" (ngSubmit)="onSubmit()">
     <h1>Sign In</h1>
     <mat-form-field class="input-container">
       <mat-label>Email</mat-label>
@@ -9,7 +9,7 @@
       <mat-label>Password</mat-label>
       <input matInput type="password" formControlName="password">
     </mat-form-field>
-    <button mat-raised-button type="submit" [disabled]="!this.signInGroup.valid" color="primary">
+    <button mat-raised-button type="submit" [disabled]="!this.loginGroup.valid" color="primary">
       Sign In
     </button>
   </form>

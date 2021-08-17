@@ -3,12 +3,13 @@ import {HttpService} from "../http-service/http.service";
 import {map, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
+import {User} from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  URL = '/api/auth';
+  URL = `${process.env.LOCAL_URL}/api/auth`;
   LOGIN_URL = `${URL}/login`;
   SIGN_UP_URL = `${URL}/sign_up`;
 
@@ -22,7 +23,7 @@ export class AuthService {
   private getUser() {
     const item = localStorage.getItem('user');
     if (item) {
-      return JSON.parse(item) as User;
+      return (JSON.parse(item)) as User;
     }
     return null;
   }
@@ -37,7 +38,8 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    this.httpService.post(this.LOGIN_URL, {email, password})
+    console.log(this.LOGIN_URL)
+    return this.httpService.post(this.LOGIN_URL, {email, password})
       .pipe(
         map((user: Partial<User>) => {
           this.setUser(user);

@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class HttpService<T> {
+  private URL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
@@ -14,6 +15,7 @@ export class HttpService<T> {
   }
 
   post(url: string, data: T): Observable<T> {
+    console.log('post in http')
     return this.http.post<T>(url, data);
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
+import {AuthService} from "../../../../core/services/auth-service/auth.service";
+import {catchError, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-sign-in-form',
@@ -7,14 +9,28 @@ import {FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./sign-in-form.component.scss']
 })
 export class SignInFormComponent implements OnInit {
-  signInGroup = this.fb.group({
+  loginGroup = this.fb.group({
     email: this.fb.control('', Validators.required),
     password: this.fb.control('', Validators.required)
-  })
+  });
 
-  constructor(private fb: FormBuilder) { }
+  error: string | null = null;
+
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    const {email, password} = this.loginGroup.value;
+    this.authService.login(email, password)
+      .pipe(
+        tap(user => console.log(user)),
+        catchError((e) => {
+        alert(e);
+        return e;
+      }));
+    console.log('after login')
   }
 
 }
