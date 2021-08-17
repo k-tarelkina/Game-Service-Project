@@ -56,6 +56,7 @@ export class AuthService {
         map((user: Partial<User>) => {
           this.setUser(user);
           this.userSubject$.next(user as User);
+          this.router.navigate(['']);
           return user;
       }));
   }
