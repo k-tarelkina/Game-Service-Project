@@ -14,7 +14,7 @@ const validateCredentials = async (credentials) => {
     }
 };
 
-const getTokenForUser = (user) => {
+const getTokenForUser = async (user) => {
     const SECRET = process.env.TOKEN_SECRET;
     return jwt.sign({
         _id: user._id,
@@ -46,10 +46,11 @@ const signUp = async (credentials) => {
 
 const signIn = async ({email, password}) => {
     const user = await getUserByCredentials(email, password);
-    return getTokenForUser(user);
+    const token = await getTokenForUser(user);
+    return {...user, token};
 };
 
 module.exports = {
     signUp,
-    signIn
+    signIn,
 };
