@@ -1,5 +1,12 @@
-const {getSearchRegExp} = require("../utils/reg_exp");
+const {hasUserGame} = require('./users_services/user_games_service');
+const {getSearchRegExp} = require('../utils/reg_exp');
 const {Game} = require('../models/game_model');
+
+const addFlagForUser = async (userId, ...games) => {
+    for (let i = 0; i < games.length; i += 1) {
+        games[i].addedToCurrentUser = await hasUserGame(userId, games[i]._id);
+    }
+};
 
 const formatOptions = (options) => {
     const formattedOptions = {};
@@ -14,10 +21,29 @@ const formatOptions = (options) => {
         formattedOptions.tags = {$in: tags};
     }
     return formattedOptions;
-}
+};
 
-const getGameById = async (id) => {
-    return Game.findOne({_id: id});
+const formatGame = async ({game, userId}) => {
+    const gameObj = extractGameObject(game);
+    await addFlagForUser(userId, gameObj);
+    return gameObj;
+};
+
+const formatGames = async ({games, userId}) => {
+    const formatted = [];
+    for (const game of games) {
+        formatted.push(await formatGame(game));
+    }
+    return formatted;
+};
+
+const extractGameObject = (game) => {
+    return game._doc;
+};
+
+const getGameById = async (gameId, userId) => {
+    const game = await Game.findOne({_id: gameId});
+    return formatGame({game, userId});
 };
 
 const getGamesByIds = async (ids) => {
@@ -35,18 +61,20 @@ const addGame = async (data) => {
 };
 
 const getAllGames = async () => {
-    return Game.find({});
-}
+    const games = await Game.find({});
+    return formatGames(games);
+};
 
 const getGamesByOptions = async (options) => {
     const formattedOptions = formatOptions(options);
-    return Game.find(formattedOptions);
-}
+    const games = await Game.find(formattedOptions);
+    return formatGames(games);
+};
 
 module.exports = {
     getGameById,
     getGamesByIds,
     addGame,
     getAllGames,
-    getGamesByOptions
-}
+    getGamesByOptions,
+};

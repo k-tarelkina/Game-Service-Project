@@ -3,5 +3,6 @@ export interface Game {
   name: string,
   description: string,
   price: number,
-  tags: string[]
+  tags: string[],
+  addedToCurrentUser: boolean
 }
