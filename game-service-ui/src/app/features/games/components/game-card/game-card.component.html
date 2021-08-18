@@ -1,1 +1,23 @@
-<p>{{game.name}}</p>
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>
+      {{game.name}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      Price: {{game.price}}$
+    </mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="game.picture || picturePlaceholder">
+  <mat-card-content class="content-with-padding">
+    <p>{{game.description}}</p>
+  </mat-card-content>
+  <mat-card-actions class="content-with-padding actions">
+    <ng-container *ngIf="game.addedToCurrentUser; else notAddedToUser">
+      <button mat-raised-button color="primary">Download</button>
+      <button mat-raised-button>Share</button>
+    </ng-container>
+    <ng-template #notAddedToUser>
+      <button mat-raised-button color="primary">Add to Library</button>
+    </ng-template>
+  </mat-card-actions>
+</mat-card>

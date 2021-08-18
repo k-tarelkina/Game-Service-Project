@@ -8,6 +8,7 @@ import {Game} from "../../../../core/models/game.model";
 })
 export class GameCardComponent implements OnInit {
   @Input() game!: Game;
+  picturePlaceholder = '/assets/image-placeholder-icon.png';
 
   constructor() { }
 

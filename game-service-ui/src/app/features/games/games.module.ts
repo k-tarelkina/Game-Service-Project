@@ -7,6 +7,7 @@ import { GamesLibraryPageComponent } from './pages/games-library-page/games-libr
 import { GameCardComponent } from './components/game-card/game-card.component';
 import { GamesContainerComponent } from './components/games-container/games-container.component';
 import { FeaturedGamesContainerComponent } from './components/featured-games-container/featured-games-container.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FeaturedGamesContainerComponent } from './components/featured-games-con
   ],
   imports: [
     CommonModule,
-    GamesRoutingModule
+    GamesRoutingModule,
+    SharedModule
   ]
 })
 export class GamesModule { }

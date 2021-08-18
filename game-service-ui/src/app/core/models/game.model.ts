@@ -4,5 +4,6 @@ export interface Game {
   description: string,
   price: number,
   tags: string[],
+  picture?: string,
   addedToCurrentUser: boolean
 }

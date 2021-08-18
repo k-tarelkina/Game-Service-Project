@@ -25,6 +25,10 @@ const Game = mongoose.model('Game', {
         type: Number,
         default: 0,
     },
+    picture: {
+        type: String,
+        required: false,
+    },
     created_date: {
         type: Date,
         default: Date.now(),

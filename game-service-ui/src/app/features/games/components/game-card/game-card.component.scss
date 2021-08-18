@@ -1,0 +1,18 @@
+$width: 300px;
+
+.card {
+  width: $width;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: $width;
+    height: $width / 4 * 3;
+  }
+}
+
+.mat-card > .mat-card-actions:last-child {
+  margin-bottom: 0;
+}
