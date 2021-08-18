@@ -6,8 +6,8 @@ import {Router} from "@angular/router";
 describe('AuthService', () => {
   let service: AuthService;
   let httpServiceSpy: jasmine.SpyObj<HttpService<any>>;
-  let routerServiceSpy: jasmine.SpyObj<Router>;
   const httpSpy = jasmine.createSpyObj('HttpService', ['post', 'get']);
+  let routerServiceSpy: jasmine.SpyObj<Router>;
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
 

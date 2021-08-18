@@ -1,8 +1,10 @@
 const express = require('express');
-const {getGameById, addGame, getGamesByOptions} = require("../services/games_service");
-const {authMiddleware} = require("../middlewares/auth_middleware");
+const {getGameById, addGame, getGamesByOptions} =
+    require('../services/games_service');
+const {authMiddleware} = require('../middlewares/auth_middleware');
 const {asyncWrapper} = require('./../utils/async_wrapper');
 
+// eslint-disable-next-line new-cap
 const router = express.Router();
 router.use(authMiddleware);
 
@@ -24,4 +26,4 @@ router.post('/', asyncWrapper(async (req, res) => {
 
 module.exports = {
     gamesController: router,
-}
+};
