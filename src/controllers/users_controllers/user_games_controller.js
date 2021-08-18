@@ -1,6 +1,6 @@
 const express = require('express');
 const {getGamesByUserId, addGameToUser, deleteUserGamesRecord} =
-    require('../../services/users_services/user_games_service');
+    require('../../services/games_services/user_games_service');
 const {asyncWrapper} = require('../../utils/async_wrapper');
 
 // eslint-disable-next-line new-cap

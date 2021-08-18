@@ -1,17 +1,8 @@
-const {getGamesByIds} = require('../games_service');
+const {getGamesByIds} = require('./games_service');
 const {GamesRecord} = require('../../models/games_record_model');
 
 const getUserRecordById = async (id) => {
     return GamesRecord.findOne({selfId: id});
-};
-
-const getGameForUser = async (userId, gameId) => {
-    return GamesRecord.findOne({selfId: userId, gamesId: gameId});
-};
-
-const hasUserGame = async (userId, gameId) => {
-    const game = await getGameForUser(userId, gameId);
-    return !!game;
 };
 
 const getGamesByUserId = async (id) => {
@@ -25,7 +16,9 @@ const addGameToUser = async (selfId, gameId) => {
         const newRecord = new GamesRecord({selfId, gamesId: [gameId]});
         await newRecord.save();
     } else {
-        await GamesRecord.findOneAndUpdate({selfId}, {$push: {gamesId: gameId}});
+        await GamesRecord.findOneAndUpdate(
+            {selfId},
+            {$push: {gamesId: gameId}});
     }
 };
 
@@ -34,7 +27,6 @@ const deleteUserGamesRecord = async (id) => {
 };
 
 module.exports = {
-    hasUserGame,
     getGamesByUserId,
     addGameToUser,
     deleteUserGamesRecord,

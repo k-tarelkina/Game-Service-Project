@@ -1,6 +1,6 @@
 const express = require('express');
 const {getGameById, addGame, getGamesByOptions} =
-    require('../services/games_service');
+    require('../services/games_services/games_service');
 const {authMiddleware} = require('../middlewares/auth_middleware');
 const {asyncWrapper} = require('./../utils/async_wrapper');
 
@@ -9,13 +9,13 @@ const router = express.Router();
 router.use(authMiddleware);
 
 router.get('/', asyncWrapper(async (req, res) => {
-    const games = await getGamesByOptions(req.query);
+    const games = await getGamesByOptions(req.query, req.user._id);
     res.status(200).json({games});
 }));
 
 router.get('/:id', asyncWrapper(async (req, res) => {
     const {id} = req.params;
-    const game = await getGameById(id);
+    const game = await getGameById(id, req.user._id);
     res.status(200).json({game});
 }));
 
