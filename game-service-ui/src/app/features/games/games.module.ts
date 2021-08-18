@@ -3,11 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { GamesRoutingModule } from './games-routing.module';
 import { GamesCataloguePageComponent } from './pages/games-catalogue-page/games-catalogue-page.component';
+import { GamesLibraryPageComponent } from './pages/games-library-page/games-library-page.component';
+import { GameCardComponent } from './components/game-card/game-card.component';
+import { GamesContainerComponent } from './components/games-container/games-container.component';
+import { FeaturedGamesContainerComponent } from './components/featured-games-container/featured-games-container.component';
 
 
 @NgModule({
   declarations: [
-    GamesCataloguePageComponent
+    GamesCataloguePageComponent,
+    GamesLibraryPageComponent,
+    GameCardComponent,
+    GamesContainerComponent,
+    FeaturedGamesContainerComponent
   ],
   imports: [
     CommonModule,

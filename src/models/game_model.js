@@ -6,8 +6,8 @@ const Tag = new mongoose.Schema({
     value: {
         type: String,
         uppercase: true,
-        enum : TAGS
-    }
+        enum: TAGS,
+    },
 });
 
 const Game = mongoose.model('Game', {
@@ -22,15 +22,15 @@ const Game = mongoose.model('Game', {
     },
     price: {
         type: Number,
-        default: null
+        default: 0,
     },
     created_date: {
         type: Date,
         default: Date.now(),
     },
     tags: {
-        type: [Tag]
-    }
+        type: [Tag],
+    },
 });
 
 module.exports = {Game};
