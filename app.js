@@ -4,7 +4,7 @@ const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
 const {gamesRouter} =
-    require('./src/controllers/users_controllers/user_games_controller');
+    require('./src/controllers/games_controller');
 const {GamesServiceError} =
     require('./src/utils/errors');
 const {authRouter} = require('./src/controllers/auth_controller');
@@ -18,7 +18,9 @@ app.use(cors()); // Enable All CORS Requests
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'game-service-ui/dist/game-service-ui')));
+app.use(express
+    .static(path
+        .join(__dirname, 'game-service-ui/dist/game-service-ui')));
 
 app.get('/', (req, res) => {
     res.sendFile(

@@ -27,7 +27,7 @@ const formatGame = async ({game, userId}) => {
 const formatGames = async ({games, userId}) => {
     const formatted = [];
     for (const game of games) {
-        formatted.push(await formatGame(game));
+        formatted.push(await formatGame({game, userId}));
     }
     return formatted;
 };

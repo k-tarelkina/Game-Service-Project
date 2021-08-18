@@ -25,5 +25,5 @@ router.post('/', asyncWrapper(async (req, res) => {
 }));
 
 module.exports = {
-    gamesController: router,
+    gamesRouter: router,
 };
