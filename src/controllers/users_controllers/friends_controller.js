@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/', asyncWrapper(async (req, res) => {
     const users = await getFriendsByUserId(req.user._id);
-    res.status(200).json({users});
+    res.status(200).json(users);
 }));
 
 router.put('/:friendId', asyncWrapper(async (req, res) => {

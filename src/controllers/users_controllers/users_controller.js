@@ -14,7 +14,7 @@ router.use('/me', selfUserRouter);
 router.get('/', asyncWrapper(async (req, res) => {
     const {username} = req.query;
     const users = await getUsersByUsername(username);
-    res.status(200).json({users});
+    res.status(200).json(users);
 }));
 
 module.exports = {

@@ -1,10 +1,10 @@
 const express = require('express');
-const {gamesRouter} = require("./user_games_controller");
-const {friendsRouter} = require("./friends_controller");
+const {gamesRouter} = require('./user_games_controller');
+const {friendsRouter} = require('./friends_controller');
 const {getUserById} = require('../../services/users_services/users_getter_service');
 const {
     deleteUserById,
-    updateUserById
+    updateUserById,
 } = require('../../services/users_services/users_editing_service');
 const {asyncWrapper} = require('../../utils/async_wrapper');
 
@@ -15,7 +15,7 @@ router.use('/games', gamesRouter);
 
 router.get('/', asyncWrapper(async (req, res) => {
     const user = await getUserById(req.user._id);
-    res.status(200).json({user});
+    res.status(200).json(user);
 }));
 
 router.delete('/', asyncWrapper(async (req, res) => {

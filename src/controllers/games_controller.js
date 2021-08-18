@@ -10,13 +10,13 @@ router.use(authMiddleware);
 
 router.get('/', asyncWrapper(async (req, res) => {
     const games = await getGamesByOptions(req.query, req.user._id);
-    res.status(200).json({games});
+    res.status(200).json(games);
 }));
 
 router.get('/:id', asyncWrapper(async (req, res) => {
     const {id} = req.params;
     const game = await getGameById(id, req.user._id);
-    res.status(200).json({game});
+    res.status(200).json(game);
 }));
 
 router.post('/', asyncWrapper(async (req, res) => {

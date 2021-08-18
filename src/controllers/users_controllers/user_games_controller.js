@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', asyncWrapper(async (req, res) => {
     const games = await getGamesByUserId(req.user._id);
-    res.status(200).json({games});
+    res.status(200).json(games);
 }));
 
 router.put('/:gameId', asyncWrapper(async (req, res) => {

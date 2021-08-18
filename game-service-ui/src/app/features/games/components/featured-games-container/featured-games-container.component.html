@@ -1,1 +1,4 @@
-<app-games-container></app-games-container>
+<ng-container *ngIf="games$ | async; let games; else loadingBlock">
+  <app-games-container [games]="games"></app-games-container>
+</ng-container>
+<ng-template #loadingBlock><p>Loading...</p></ng-template>
