@@ -23,6 +23,11 @@ library
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'games',
+    pathMatch: 'full'
+  },
+  {
+    path: 'games',
     loadChildren:  () => import('./features/games/games.module').then(m => m.GamesModule),
     canActivate: [AuthGuard]
   },
@@ -30,7 +35,17 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'friends',
+    redirectTo: 'games',
+    pathMatch: 'full'
+  },
+  {
+    path: 'profile',
+    redirectTo: 'games',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
