@@ -9,7 +9,8 @@ import { GamesContainerComponent } from './components/games-container/games-cont
 import { FeaturedGamesContainerComponent } from './components/featured-games-container/featured-games-container.component';
 import {SharedModule} from "../../shared/shared.module";
 import { UserGamesContainerComponent } from './components/user-games-container/user-games-container.component';
-
+import { GamesSearchFormComponent } from './components/games-search-form/games-search-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,12 +19,14 @@ import { UserGamesContainerComponent } from './components/user-games-container/u
     GameCardComponent,
     GamesContainerComponent,
     FeaturedGamesContainerComponent,
-    UserGamesContainerComponent
+    UserGamesContainerComponent,
+    GamesSearchFormComponent
   ],
   imports: [
     CommonModule,
     GamesRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class GamesModule { }
