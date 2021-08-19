@@ -32,4 +32,7 @@ export class GameCardComponent {
       .then(() => alert('Game info was copied! Now you can share it in social media'))
   }
 
+  download() {
+    alert('Download has started');
+  }
 }
