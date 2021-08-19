@@ -5,9 +5,9 @@ const getUserRecordById = async (id) => {
     return GamesRecord.findOne({selfId: id});
 };
 
-const getGamesByUserId = async (id) => {
-    const {gamesId} = await getUserRecordById(id);
-    return getGamesByIds(gamesId);
+const getGamesByUserId = async (userId) => {
+    const {gamesId} = await getUserRecordById(userId);
+    return getGamesByIds(gamesId, userId);
 };
 
 const addGameToUser = async (selfId, gameId) => {

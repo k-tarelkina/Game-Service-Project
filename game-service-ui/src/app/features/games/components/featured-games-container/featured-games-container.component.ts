@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Observable} from "rxjs";
 import {Game} from "../../../../core/models/game.model";
-import {GamesService} from "../../../../core/services/games_service/games.service";
+import {GamesService} from "../../../../core/services/games-service/games.service";
 
 @Component({
   selector: 'app-featured-games-container',
@@ -14,7 +14,6 @@ export class FeaturedGamesContainerComponent implements OnInit {
   constructor(private gamesService: GamesService) { }
 
   ngOnInit(): void {
-    this.games$ = this.gamesService.getAllGames$();
+    this.games$ = this.gamesService.games$;
   }
-
 }

@@ -9,6 +9,7 @@ const TAGS = [
     'STRATEGY',
     'RPG',
     'SINGLE-PLAYER',
+    'MULTI-PLAYER',
 ];
 
 const Game = mongoose.model('Game', {

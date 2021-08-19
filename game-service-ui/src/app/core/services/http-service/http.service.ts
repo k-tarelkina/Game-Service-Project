@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {environment} from "../../../../environments/environment";
+import {catchError, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,20 @@ export class HttpService<T> {
   }
 
   post(url: string, data: T, options?: Object): Observable<T> {
-    // let headers = new Headers({'Content-Type': 'application/json'});
-    // let allOptions = {headers, ...options};
     return this.http.post<T>(this.completeUrl(url), data);
+  }
+
+  put(url: string, data?: T): Observable<T> {
+    console.log('put')
+    console.log(this.completeUrl(url))
+    console.log(data)
+    return this.http.put<T>(this.completeUrl(url), data)
+      .pipe(
+        catchError((err => {
+          console.log(err)
+          return of(err);
+        })),
+        tap(res => console.log(res))
+      );
   }
 }

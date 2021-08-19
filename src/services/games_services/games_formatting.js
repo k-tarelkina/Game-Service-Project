@@ -21,6 +21,7 @@ const extractGameObject = (game) => {
 const formatGame = async ({game, userId}) => {
     const gameObj = extractGameObject(game);
     await addFlagForUser(userId, gameObj);
+    console.log(gameObj);
     return gameObj;
 };
 

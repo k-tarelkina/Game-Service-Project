@@ -4,12 +4,11 @@ $width: 300px;
   width: $width;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   img {
-    width: $width;
     height: $width / 4 * 3;
+    object-fit: cover;
   }
 }
 

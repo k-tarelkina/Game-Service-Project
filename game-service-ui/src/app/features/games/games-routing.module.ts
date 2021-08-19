@@ -6,7 +6,7 @@ import {GamesLibraryPageComponent} from "./pages/games-library-page/games-librar
 const routes: Routes = [
   {
     path: '',
-    component: GamesCataloguePageComponent,
+    component: GamesCataloguePageComponent
   },
   {
     path: 'library',

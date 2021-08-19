@@ -53,11 +53,10 @@ export class AuthService {
   login(email: string, password: string) {
     return this.httpService.post(this.LOGIN_URL, {email, password})
       .pipe(
-        map((user: Partial<User>) => {
+        tap((user: Partial<User>) => {
           this.setUser(user);
           this.userSubject$.next(user as User);
           this.router.navigate(['']);
-          return user;
       }));
   }
 

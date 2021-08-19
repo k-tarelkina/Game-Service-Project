@@ -13,11 +13,19 @@
   </mat-card-content>
   <mat-card-actions class="content-with-padding actions">
     <ng-container *ngIf="game.addedToCurrentUser; else notAddedToUser">
-      <button mat-raised-button color="primary">Download</button>
-      <button mat-raised-button>Share</button>
+      <button mat-raised-button>
+        Share
+      </button>
+      <button mat-raised-button color="primary">
+        Download
+      </button>
     </ng-container>
     <ng-template #notAddedToUser>
-      <button mat-raised-button color="primary">Add to Library</button>
+      <button mat-raised-button color="primary"
+              [disabled]="addedToLibrary"
+              (click)="addedToLibrary = true; addToLibrary()">
+        Add to Library
+      </button>
     </ng-template>
   </mat-card-actions>
 </mat-card>

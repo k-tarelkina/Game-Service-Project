@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-games-catalogue-page',
   templateUrl: './games-catalogue-page.component.html',
   styleUrls: ['./games-catalogue-page.component.scss']
 })
-export class GamesCataloguePageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class GamesCataloguePageComponent {}

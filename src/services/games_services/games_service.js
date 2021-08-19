@@ -25,10 +25,10 @@ const getGameById = async (gameId, userId) => {
     return formatGame({game, userId});
 };
 
-const getGamesByIds = async (ids) => {
+const getGamesByIds = async (ids, userId) => {
     const games = [];
     for (const id of ids) {
-        const game = await getGameById(id);
+        const game = await getGameById(id, userId);
         games.push(game);
     }
     return games;
