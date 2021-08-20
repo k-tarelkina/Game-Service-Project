@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
-const TAGS = ['INDIE', 'ACTION', 'ADVENTURE'];
-
-const Tag = new mongoose.Schema({
-    value: {
-        type: String,
-        uppercase: true,
-        enum : TAGS
-    }
-});
+const TAGS = [
+    'INDIE',
+    'ACTION',
+    'ADVENTURE',
+    'CASUAL',
+    'SIMULATION',
+    'STRATEGY',
+    'RPG',
+    'SINGLE-PLAYER',
+    'MULTI-PLAYER',
+];
 
 const Game = mongoose.model('Game', {
     name: {
@@ -22,15 +24,23 @@ const Game = mongoose.model('Game', {
     },
     price: {
         type: Number,
-        default: null
+        default: 0,
+    },
+    picture: {
+        type: String,
+        required: false,
     },
     created_date: {
         type: Date,
         default: Date.now(),
     },
     tags: {
-        type: [Tag]
-    }
+        type: [{
+            type: String,
+            uppercase: true,
+            enum: TAGS,
+        }],
+    },
 });
 
-module.exports = {Game};
+module.exports = {Game, TAGS};

@@ -1,0 +1,4 @@
+<p *ngIf="games.length === 0">No games found</p>
+<div class="games-container">
+  <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
+</div>

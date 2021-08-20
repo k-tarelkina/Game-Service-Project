@@ -8,6 +8,7 @@ import { MainMenuComponent } from './core/components/main-menu/main-menu.compone
 import { HeaderComponent } from './core/components/header/header.component';
 import {SharedModule} from "./shared/shared.module";
 import {RouterModule} from "@angular/router";
+import {httpInterceptorProviders} from "./interceptors/http_interceptors";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {RouterModule} from "@angular/router";
     SharedModule
   ],
   providers: [
-    // httpInterceptorProviders
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })
