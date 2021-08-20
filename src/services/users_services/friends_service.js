@@ -1,36 +1,62 @@
-const {getUsersByIds} = require("./users_getter_service");
 const {FriendsRecord} = require('../../models/friends_record_model');
 
-const getUserRecordById = async (id) => {
-    return FriendsRecord.findOne({selfId: id});
+const changeRequestStatus = async (selfId, friendId, status) => {
+    await FriendsRecord.findOneAndUpdate({selfId, friendId}, {status});
+};
+
+const getFriendsRequestsByUserId = async (userId) => {
+    return FriendsRecord.find({
+        $and: [
+            {friendId: userId},
+            {
+                status: 'PENDING',
+            },
+        ],
+    });
 };
 
 const getFriendsByUserId = async (id) => {
-    const {friendsId} = await getUserRecordById(id);
-    return getUsersByIds(friendsId);
+    return FriendsRecord.find({
+        $and: [
+            {
+                $or: [{selfId: id}, {friendId: id}],
+            },
+            {
+                status: 'ACCEPTED',
+            },
+        ],
+    });
 };
 
-const addFriendToUser = async (selfId, friendId) => {
-    const self = await FriendsRecord.findOne({selfId});
-    if (!self) {
-        const newRecord = new FriendsRecord({selfId, friendsId: [friendId]});
-        await newRecord.save();
-    } else {
-        await FriendsRecord.findOneAndUpdate({selfId}, { $push: {friendsId: friendId}});
-    }
-}
+const addRequestForFriend = async (selfId, friendId) => {
+    const record = new FriendsRecord({selfId, friendId});
+    await record.save();
+};
 
 const deleteFriendForUser = async (selfId, friendId) => {
-    await FriendsRecord.findOneAndUpdate({selfId}, { $pull: {friendsId: friendId}});
-}
+    await FriendsRecord.findOneAndDelete({
+        and$: [{
+            $or: [
+                {
+                    $and: [{selfId}, {friendId}],
+                },
+                {
+                    $and: [{selfId: friendId}, {friendId: selfId}],
+                },
+            ],
+        },
+        {status: 'ACCEPTED'}]});
+};
 
-const deleteUserFriendsRecord = async (id) => {
+const deleteUserFriends = async (id) => {
     await FriendsRecord.deleteOne({selfId: id});
-}
+};
 
 module.exports = {
     getFriendsByUserId,
-    addFriendToUser,
+    addRequestForFriend,
     deleteFriendForUser,
-    deleteUserFriendsRecord
-}
+    deleteUserFriends,
+    getFriendsRequestsByUserId,
+    changeRequestStatus,
+};

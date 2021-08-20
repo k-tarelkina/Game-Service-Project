@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { FriendsRoutingModule } from './friends-routing.module';
 import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
+import { FriendsContainerComponent } from './components/friends-container/friends-container.component';
+import { FriendCardComponent } from './components/friend-card/friend-card.component';
 
 
 @NgModule({
   declarations: [
-    FriendsPageComponent
+    FriendsPageComponent,
+    FriendsContainerComponent,
+    FriendCardComponent
   ],
   imports: [
     CommonModule,

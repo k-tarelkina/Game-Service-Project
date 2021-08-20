@@ -1,11 +1,11 @@
 const {encryptPassword} = require('../../utils/password_processing');
 const {User} = require('../../models/user_model');
 const {deleteUserGamesRecord} = require('../games_services/user_games_service');
-const {deleteUserFriendsRecord} = require('./friends_service');
+const {deleteUserFriends} = require('./friends_service');
 
 const deleteUserById = async (id) => {
     await User.deleteOne({_id: id});
-    await deleteUserFriendsRecord(id);
+    await deleteUserFriends(id);
     await deleteUserGamesRecord(id);
 };
 
