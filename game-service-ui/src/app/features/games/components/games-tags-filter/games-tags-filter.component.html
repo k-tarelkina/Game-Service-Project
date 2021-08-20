@@ -1,1 +1,3 @@
-<p>games-tags-filter works!</p>
+<div *ngIf="tags$ | async; let tags" class="checkboxes-container">
+  <mat-checkbox *ngFor="let tag of tags">{{tag}}</mat-checkbox>
+</div>

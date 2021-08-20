@@ -43,4 +43,4 @@ const Game = mongoose.model('Game', {
     },
 });
 
-module.exports = {Game};
+module.exports = {Game, TAGS};

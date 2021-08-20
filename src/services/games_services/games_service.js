@@ -1,3 +1,4 @@
+const {TAGS} = require('../../models/game_model');
 const {Game} = require('./../../models/game_model');
 const {formatGames} = require('./games_formatting');
 const {getSearchRegExp} = require('../../utils/reg_exp');
@@ -39,6 +40,10 @@ const getAllGames = async (userId) => {
     return formatGames({games, userId});
 };
 
+const getAllGamesTags = () => {
+    return TAGS;
+};
+
 const getGamesByOptions = async (options, userId) => {
     const formattedOptions = formatOptions(options);
     const games = await Game.find(formattedOptions);
@@ -56,4 +61,5 @@ module.exports = {
     getAllGames,
     getGamesByOptions,
     addGame,
+    getAllGamesTags,
 };
