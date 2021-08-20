@@ -18,12 +18,10 @@ export class GamesCataloguePageComponent implements OnDestroy {
   }
 
   applyOptionsToGames() {
-    this.isLoading$.next(true);
-    const sub = this.gamesService
+    this.subscription.add(
+      this.gamesService
       .applyOptions$({name: this.searchText, ...this.filters})
-      .subscribe(() => {
-        this.isLoading$.next(false);
-      });
+        .subscribe());
   }
 
   search(text: string): void {

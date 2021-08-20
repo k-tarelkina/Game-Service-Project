@@ -20,7 +20,7 @@ export class GameCardComponent {
   }
 
   private formShareText(): string {
-    return `${this.game.name}: ${this.getShortDescription()}.. Discover more exciting games at ${environment.apiUrl}`;
+    return `${this.game.name}: ${this.getShortDescription()}... Discover more exciting games at ${environment.apiUrl}`;
   }
 
   addToLibrary() {
