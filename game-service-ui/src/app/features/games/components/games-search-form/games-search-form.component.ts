@@ -7,12 +7,13 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./games-search-form.component.scss']
 })
 export class GamesSearchFormComponent {
-  @Output() searchEmitter = new EventEmitter<string>();
+  @Output() search = new EventEmitter<string>();
+
   searchGroup = new FormGroup({
     search: new FormControl(''),
   });
 
   submit() {
-    this.searchEmitter.emit(this.searchGroup.value.search);
+    this.search.emit(this.searchGroup.value.search);
   }
 }

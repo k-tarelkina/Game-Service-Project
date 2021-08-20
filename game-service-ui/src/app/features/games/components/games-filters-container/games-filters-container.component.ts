@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {BehaviorSubject, Subscription} from "rxjs";
+import {GamesOptions} from "../../../../core/services/games-service/games.service";
 
 @Component({
   selector: 'app-games-filters-container',
@@ -7,8 +8,9 @@ import {BehaviorSubject, Subscription} from "rxjs";
   styleUrls: ['./games-filters-container.component.scss']
 })
 export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
-  @Output() filtersChange = new EventEmitter<Object>();
-  private _currentFilters$ = new BehaviorSubject<Object>({});
+  @Input() isLoading: boolean | null = false;
+  @Output() filtersChange = new EventEmitter<GamesOptions>();
+  private _currentFilters$ = new BehaviorSubject<GamesOptions>({});
   private _subscription!: Subscription;
 
   constructor() { }
@@ -20,7 +22,7 @@ export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
   }
 
   setPrice(price: number) {
-    this._currentFilters$.next({...this._currentFilters$.value, price});
+    this._currentFilters$.next({...this._currentFilters$.value, maxPrice: price});
   }
 
   setTags(tags: string[]) {

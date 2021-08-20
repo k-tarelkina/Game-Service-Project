@@ -17,8 +17,7 @@ export interface GamesOptions {
 export class GamesService {
   private _GAMES_URL = '/api/games';
   private _gamesSubject$ = new BehaviorSubject<Game[]>([]);
-  private _filters!: Object | null;
-  private _searchText!: string;
+  private _options!: Object;
 
   constructor(private httpService: HttpService<Game>,
               private userGamesService: UserGamesService) {
@@ -38,31 +37,22 @@ export class GamesService {
       });
   }
 
-  set filters(filtersToSet: Object | null) {
-    this._filters = filtersToSet;
-  }
-
-  set searchText(text: string) {
-    this._searchText = text;
-  }
-
   get games$(): Observable<Game[]> {
     return this._gamesSubject$.asObservable();
   }
 
   applyOptions$(options: GamesOptions): Observable<Game[]> {
-    console.log('options', options);
-    return this.getAllGames$(options)
+    this._options = options
+    return this.getAllGames$()
       .pipe(
         tap(games => {
           this._gamesSubject$.next(games);
         }));
   }
 
-  getAllGames$(params?: GamesOptions): Observable<Game[]> {
-    if (params) {
-      const httpParams = this.httpService.formHttpParams(params);
-      console.log(httpParams);
+  getAllGames$(): Observable<Game[]> {
+    if (this._options) {
+      const httpParams = this.httpService.formHttpParams(this._options);
       return this.httpService.get(this._GAMES_URL, {params: httpParams}) as Observable<Game[]>;
     }
     return this.httpService.get(this._GAMES_URL) as Observable<Game[]>;

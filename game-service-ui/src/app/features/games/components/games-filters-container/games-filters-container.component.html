@@ -1,4 +1,6 @@
 <p>Price</p>
-<app-games-price-filter (priceChange)="setPrice($event)"></app-games-price-filter>
+<app-games-price-filter (priceChange)="setPrice($event)"
+                        [disabled]="!!isLoading"></app-games-price-filter>
 <p>Tags</p>
-<app-games-tags-filter (tagsChange)="setTags($event)"></app-games-tags-filter>
+<app-games-tags-filter (tagsChange)="setTags($event)"
+                       [disabled]="!!isLoading"></app-games-tags-filter>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-games-price-filter',
@@ -6,6 +6,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./games-price-filter.component.scss']
 })
 export class GamesPriceFilterComponent implements OnInit {
+  @Input() disabled: boolean = false;
   @Output() priceChange = new EventEmitter<number>();
 
   constructor() { }

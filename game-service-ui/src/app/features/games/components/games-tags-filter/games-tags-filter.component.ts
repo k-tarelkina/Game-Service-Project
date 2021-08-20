@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {GamesTagsService} from "../../../../core/services/games-tags-service/games-tags.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import { debounceTime} from "rxjs/operators";
@@ -14,6 +14,7 @@ export class GamesTagsFilterComponent implements OnInit, OnDestroy {
   private _subscription = new Subscription();
 
   allTags$!: Observable<string[]>;
+  @Input() disabled: boolean = false;
   @Output() tagsChange = new EventEmitter<string[]>();
 
   constructor(private tagsService: GamesTagsService) { }
