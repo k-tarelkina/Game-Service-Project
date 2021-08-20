@@ -1,12 +1,12 @@
 <main class="wrapper">
   <h1>Games</h1>
-  <app-games-search-form></app-games-search-form>
+  <app-games-search-form (searchEmitter)="search($event)"></app-games-search-form>
   <div class="games-container-with-filters">
-    <section>
+    <section class="featured-games-section">
       <h2>Featured Games</h2>
       <app-featured-games-container></app-featured-games-container>
     </section>
-    <section>
+    <section class="filters-section">
       <h2>Filters</h2>
       <p>filters placeholder</p>
     </section>

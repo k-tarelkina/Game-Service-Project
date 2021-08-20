@@ -15,16 +15,19 @@ export class HttpService<T> {
   }
 
   formHttpParams(params: Object): HttpParams {
-    const httpParams = new HttpParams();
+    let httpParams = new HttpParams();
     for (let [key, val] of Object.entries(params)) {
+      console.log(key, val);
       if (Array.isArray(val)) {
         for (let value of val) {
-          httpParams.append(`${key}[]`, value);
+          httpParams = httpParams.append(`${key}[]`, value);
         }
       } else {
-        httpParams.set(key, val);
+        console.log('set: ', key, val);
+        httpParams = httpParams.set(key, val);
       }
     }
+    console.log(httpParams.toString())
     return httpParams;
   }
 

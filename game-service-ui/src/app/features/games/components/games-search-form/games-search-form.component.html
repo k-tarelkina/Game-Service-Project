@@ -1,7 +1,7 @@
-<form>
+<form [formGroup]="searchGroup" (ngSubmit)="submit()">
   <mat-form-field>
     <mat-label>Search</mat-label>
-    <input matInput>
+    <input matInput formControlName="search">
   </mat-form-field>
-  <button mat-button>Search</button>
+  <button mat-button type="submit">Search</button>
 </form>

@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Observable, Subscription} from "rxjs";
 import {Game} from "../../../../core/models/game.model";
 import {GamesService} from "../../../../core/services/games-service/games.service";
 

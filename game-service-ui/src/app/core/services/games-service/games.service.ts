@@ -5,13 +5,20 @@ import {BehaviorSubject, Observable, of} from "rxjs";
 import {catchError, concatMap, tap} from "rxjs/operators";
 import {UserGamesService} from "../user-games-service/user-games.service";
 
+export interface GamesOptions {
+  name?: string,
+  tags?: string[],
+  maxPrice?: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class GamesService {
-  private GAMES_URL = '/api/games';
-
-  private gamesSubject$ = new BehaviorSubject<Game[]>([]);
+  private _GAMES_URL = '/api/games';
+  private _gamesSubject$ = new BehaviorSubject<Game[]>([]);
+  private _filters!: Object | null;
+  private _searchText!: string;
 
   constructor(private httpService: HttpService<Game>,
               private userGamesService: UserGamesService) {
@@ -27,20 +34,38 @@ export class GamesService {
         })
       )
       .subscribe((games) => {
-        this.gamesSubject$.next(games)
+        this._gamesSubject$.next(games)
       });
   }
 
-  get games$(): Observable<Game[]> {
-    return this.gamesSubject$.asObservable();
+  set filters(filtersToSet: Object | null) {
+    this._filters = filtersToSet;
   }
 
-  getAllGames$(params?: Object): Observable<Game[]> {
+  set searchText(text: string) {
+    this._searchText = text;
+  }
+
+  get games$(): Observable<Game[]> {
+    return this._gamesSubject$.asObservable();
+  }
+
+  applyOptions$(options: GamesOptions): Observable<Game[]> {
+    console.log('options', options);
+    return this.getAllGames$(options)
+      .pipe(
+        tap(games => {
+          this._gamesSubject$.next(games);
+        }));
+  }
+
+  getAllGames$(params?: GamesOptions): Observable<Game[]> {
     if (params) {
       const httpParams = this.httpService.formHttpParams(params);
-      return this.httpService.get(this.GAMES_URL, {params: httpParams}) as Observable<Game[]>;
+      console.log(httpParams);
+      return this.httpService.get(this._GAMES_URL, {params: httpParams}) as Observable<Game[]>;
     }
-    return this.httpService.get(this.GAMES_URL) as Observable<Game[]>;
+    return this.httpService.get(this._GAMES_URL) as Observable<Game[]>;
   }
 
   addGameToLibrary$(gameId: string): Observable<Game[]> {
@@ -48,7 +73,7 @@ export class GamesService {
       .pipe(
         concatMap(() => this.getAllGames$()),
         tap(games => {
-          this.gamesSubject$.next(games);
+          this._gamesSubject$.next(games);
         })
       );
   }

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-games-search-form',
   templateUrl: './games-search-form.component.html',
   styleUrls: ['./games-search-form.component.scss']
 })
-export class GamesSearchFormComponent implements OnInit {
+export class GamesSearchFormComponent {
+  @Output() searchEmitter = new EventEmitter<string>();
+  searchGroup = new FormGroup({
+    search: new FormControl(''),
+  });
 
-  constructor() { }
-
-  ngOnInit(): void {
+  submit() {
+    this.searchEmitter.emit(this.searchGroup.value.search);
   }
-
 }
