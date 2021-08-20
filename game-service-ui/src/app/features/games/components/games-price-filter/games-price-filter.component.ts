@@ -6,7 +6,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./games-price-filter.component.scss']
 })
 export class GamesPriceFilterComponent implements OnInit {
-  @Output() priceEmitter = new EventEmitter<number>();
+  @Output() priceChange = new EventEmitter<number>();
 
   constructor() { }
 
@@ -14,6 +14,6 @@ export class GamesPriceFilterComponent implements OnInit {
   }
 
   setPrice(price: number) {
-    this.priceEmitter.emit(price);
+    this.priceChange.emit(price);
   }
 }

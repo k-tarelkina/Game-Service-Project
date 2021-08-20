@@ -14,7 +14,7 @@ export class GamesTagsFilterComponent implements OnInit, OnDestroy {
   private _subscription = new Subscription();
 
   allTags$!: Observable<string[]>;
-  @Output() tagsEmitter = new EventEmitter<string[]>();
+  @Output() tagsChange = new EventEmitter<string[]>();
 
   constructor(private tagsService: GamesTagsService) { }
 
@@ -28,7 +28,7 @@ export class GamesTagsFilterComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(1000)
       ).subscribe(tags => {
-        this.tagsEmitter.emit([...tags])
+        this.tagsChange.emit([...tags])
       });
     this._subscription.add(sub);
   }
