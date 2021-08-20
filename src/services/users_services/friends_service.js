@@ -4,13 +4,11 @@ const changeRequestStatus = async (selfId, friendId, status) => {
     await FriendsRecord.findOneAndUpdate({selfId, friendId}, {status});
 };
 
-const getFriendsRequestsByUserId = async (userId) => {
+const getFriendsRequestsByStatusForUser = async (userId, status) => {
     return FriendsRecord.find({
         $and: [
             {friendId: userId},
-            {
-                status: 'PENDING',
-            },
+            {status},
         ],
     });
 };
@@ -35,17 +33,14 @@ const addRequestForFriend = async (selfId, friendId) => {
 
 const deleteFriendForUser = async (selfId, friendId) => {
     await FriendsRecord.findOneAndDelete({
-        and$: [{
-            $or: [
-                {
-                    $and: [{selfId}, {friendId}],
-                },
-                {
-                    $and: [{selfId: friendId}, {friendId: selfId}],
-                },
-            ],
-        },
-        {status: 'ACCEPTED'}]});
+        $or: [
+            {
+                $and: [{selfId}, {friendId}],
+            },
+            {
+                $and: [{selfId: friendId}, {friendId: selfId}],
+            },
+        ]});
 };
 
 const deleteUserFriends = async (id) => {
@@ -57,6 +52,6 @@ module.exports = {
     addRequestForFriend,
     deleteFriendForUser,
     deleteUserFriends,
-    getFriendsRequestsByUserId,
+    getFriendsRequestsByStatusForUser,
     changeRequestStatus,
 };
