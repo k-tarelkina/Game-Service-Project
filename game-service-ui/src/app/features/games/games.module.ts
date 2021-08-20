@@ -11,6 +11,10 @@ import {SharedModule} from "../../shared/shared.module";
 import { UserGamesContainerComponent } from './components/user-games-container/user-games-container.component';
 import { GamesSearchFormComponent } from './components/games-search-form/games-search-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { GamesPriceFilterComponent } from './components/games-price-filter/games-price-filter.component';
+import { GamesTagsFilterComponent } from './components/games-tags-filter/games-tags-filter.component';
+import { GamesFiltersContainerComponent } from './components/games-filters-container/games-filters-container.component';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -20,13 +24,17 @@ import {ReactiveFormsModule} from "@angular/forms";
     GamesContainerComponent,
     FeaturedGamesContainerComponent,
     UserGamesContainerComponent,
-    GamesSearchFormComponent
+    GamesSearchFormComponent,
+    GamesPriceFilterComponent,
+    GamesTagsFilterComponent,
+    GamesFiltersContainerComponent
   ],
   imports: [
     CommonModule,
     GamesRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSliderModule
   ]
 })
 export class GamesModule { }
