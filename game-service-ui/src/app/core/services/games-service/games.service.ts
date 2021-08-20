@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "../http-service/http.service";
-import {Game} from "../../models/game.model";
+import {GameModel} from "../../models/game.model";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {catchError, concatMap, tap} from "rxjs/operators";
 import {UserGamesService} from "../user-games-service/user-games.service";
@@ -16,10 +16,10 @@ export interface GamesOptions {
 })
 export class GamesService {
   private _GAMES_URL = '/api/games';
-  private _gamesSubject$ = new BehaviorSubject<Game[]>([]);
+  private _gamesSubject$ = new BehaviorSubject<GameModel[]>([]);
   private _options!: Object;
 
-  constructor(private httpService: HttpService<Game>,
+  constructor(private httpService: HttpService<GameModel>,
               private userGamesService: UserGamesService) {
     this.preloadGames();
   }
@@ -37,11 +37,11 @@ export class GamesService {
       });
   }
 
-  get games$(): Observable<Game[]> {
+  get games$(): Observable<GameModel[]> {
     return this._gamesSubject$.asObservable();
   }
 
-  applyOptions$(options: GamesOptions): Observable<Game[]> {
+  applyOptions$(options: GamesOptions): Observable<GameModel[]> {
     this._options = options
     return this.getAllGames$()
       .pipe(
@@ -50,15 +50,15 @@ export class GamesService {
         }));
   }
 
-  getAllGames$(): Observable<Game[]> {
+  getAllGames$(): Observable<GameModel[]> {
     if (this._options) {
       const httpParams = this.httpService.formHttpParams(this._options);
-      return this.httpService.get(this._GAMES_URL, {params: httpParams}) as Observable<Game[]>;
+      return this.httpService.get(this._GAMES_URL, {params: httpParams}) as Observable<GameModel[]>;
     }
-    return this.httpService.get(this._GAMES_URL) as Observable<Game[]>;
+    return this.httpService.get(this._GAMES_URL) as Observable<GameModel[]>;
   }
 
-  addGameToLibrary$(gameId: string): Observable<Game[]> {
+  addGameToLibrary$(gameId: string): Observable<GameModel[]> {
     return this.userGamesService.addGameToLibrary$(gameId)
       .pipe(
         concatMap(() => this.getAllGames$()),

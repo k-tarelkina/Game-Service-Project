@@ -1,0 +1,14 @@
+<ng-container *ngIf="requests$ | async; let requests; else loading">
+  <ng-container *ngIf="requests.length; else noRequests">
+    <app-friend-request-card *ngFor="let request of requests"
+                             [request]="request"></app-friend-request-card>
+  </ng-container>
+  <ng-template #noRequests>
+    <p>No request found</p>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <p>
+    Loading
+  </p>
+</ng-template>

@@ -1,9 +1,5 @@
 const {FriendsRecord} = require('../../models/friends_record_model');
 
-const changeRequestStatus = async (selfId, friendId, status) => {
-    await FriendsRecord.findOneAndUpdate({selfId, friendId}, {status});
-};
-
 const getFriendsRequestsByStatusForUser = async (userId, status) => {
     return FriendsRecord.find({
         $and: [
@@ -29,6 +25,10 @@ const getFriendsByUserId = async (id) => {
 const addRequestForFriend = async (selfId, friendId) => {
     const record = new FriendsRecord({selfId, friendId});
     await record.save();
+};
+
+const changeRequestStatus = async (selfId, friendId, status) => {
+    await FriendsRecord.findOneAndUpdate({selfId, friendId}, {status});
 };
 
 const deleteFriendForUser = async (selfId, friendId) => {

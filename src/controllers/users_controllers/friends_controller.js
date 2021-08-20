@@ -1,4 +1,5 @@
 const express = require('express');
+const {friendsMiddleware} = require('../../middlewares/friends_middleware');
 const {getFriendsByUserId,
     deleteFriendForUser,
     addRequestForFriend,
@@ -20,6 +21,8 @@ router.get('/', asyncWrapper(async (req, res) => {
     }
     res.status(200).json(users);
 }));
+
+router.use(friendsMiddleware);
 
 router.put('/:friendId', asyncWrapper(async (req, res) => {
     const {friendId} = req.params;

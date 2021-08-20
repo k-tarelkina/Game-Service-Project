@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GamesSearchFormComponent } from './games-search-form.component';
+import { FriendRequestCardComponent } from './friend-request-card.component';
 
-describe('GamesSearchFormComponent', () => {
-  let component: GamesSearchFormComponent;
-  let fixture: ComponentFixture<GamesSearchFormComponent>;
+describe('FriendRequestCardComponent', () => {
+  let component: FriendRequestCardComponent;
+  let fixture: ComponentFixture<FriendRequestCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamesSearchFormComponent ]
+      declarations: [ FriendRequestCardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GamesSearchFormComponent);
+    fixture = TestBed.createComponent(FriendRequestCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

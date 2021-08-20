@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Game} from "../../../../core/models/game.model";
+import {GameModel} from "../../../../core/models/game.model";
 import {GamesService} from "../../../../core/services/games-service/games.service";
 import {environment} from "../../../../../environments/environment";
 
@@ -9,7 +9,7 @@ import {environment} from "../../../../../environments/environment";
   styleUrls: ['./game-card.component.scss']
 })
 export class GameCardComponent {
-  @Input() game!: Game;
+  @Input() game!: GameModel;
   picturePlaceholder = '/assets/image-placeholder-icon.png';
   addedToLibrary = this.game?.addedToCurrentUser || false;
 
@@ -29,7 +29,7 @@ export class GameCardComponent {
 
   copyToClipboard() {
     navigator.clipboard.writeText(this.formShareText())
-      .then(() => alert('Game info was copied! Now you can share it in social media'))
+      .then(() => alert('GameModel info was copied! Now you can share it in social media'))
   }
 
   download() {

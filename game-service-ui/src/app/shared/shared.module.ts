@@ -5,11 +5,11 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {GamesSearchFormComponent} from "./components/games-search-form/games-search-form.component";
+import {SearchFormComponent} from "./components/search-form/search-form.component";
 import {ReactiveFormsModule} from "@angular/forms";
 
 const PUBLIC_COMPONENTS: any[] = [
-  GamesSearchFormComponent
+  SearchFormComponent
 ];
 const PUBLIC_DIRECTIVES: any[] = [];
 const PUBLIC_PIPES: any[] = [];
@@ -22,7 +22,6 @@ const PUBLIC_MODULES: any[] = [
   MatCheckboxModule,
   ReactiveFormsModule
 ];
-
 
 @NgModule({
   declarations: [
