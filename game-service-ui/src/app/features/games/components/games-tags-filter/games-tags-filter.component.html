@@ -1,3 +1,5 @@
-<div *ngIf="tags$ | async; let tags" class="checkboxes-container">
-  <mat-checkbox *ngFor="let tag of tags">{{tag}}</mat-checkbox>
+<div *ngIf="allTags$ | async; let tags" class="checkboxes-container">
+  <mat-checkbox *ngFor="let tag of tags" #checkbox (change)="handleTag(tag, checkbox.checked)">
+    {{tag}}
+  </mat-checkbox>
 </div>
