@@ -38,8 +38,8 @@ const routes: Routes = [
   },
   {
     path: 'friends',
-    redirectTo: 'games',
-    pathMatch: 'full'
+    loadChildren: () => import('./features/friends/friends.module').then(m => m.FriendsModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
