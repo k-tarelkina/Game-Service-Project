@@ -13,7 +13,8 @@ router.use('/me', selfUserRouter);
 
 router.get('/', asyncWrapper(async (req, res) => {
     const {username} = req.query;
-    const users = await getUsersByUsername(username);
+    const {_id} = req.user;
+    const users = await getUsersByUsername(username, _id);
     res.status(200).json(users);
 }));
 

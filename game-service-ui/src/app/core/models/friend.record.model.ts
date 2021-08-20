@@ -1,6 +1,6 @@
 interface Friend {
   _id: string,
-  name: string
+  username: string
 }
 
 export interface FriendRecordModel {

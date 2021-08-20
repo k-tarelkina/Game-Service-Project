@@ -9,8 +9,8 @@ const friendsMiddleware = async (req, res, next) => {
     for (let i = 0; i < friendsRecords.length; i += 1) {
         const {friendId} = friendsRecords[i];
         const friend = await getUserById(friendId);
-        const {_id, name} = friend;
-        friendsRecords[i].friend = {_id, name};
+        const {_id, username} = friend;
+        friendsRecords[i].friend = {_id, username};
     }
     req.body = friendsRecords;
     next();

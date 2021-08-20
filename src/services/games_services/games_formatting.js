@@ -1,4 +1,5 @@
 const {GamesRecord} = require('../../models/games_record_model');
+
 const getGameForUser = async (userId, gameId) => {
     return GamesRecord.findOne({selfId: userId, gamesId: gameId});
 };
@@ -21,7 +22,6 @@ const extractGameObject = (game) => {
 const formatGame = async ({game, userId}) => {
     const gameObj = extractGameObject(game);
     await addFlagForUser(userId, gameObj);
-    console.log(gameObj);
     return gameObj;
 };
 

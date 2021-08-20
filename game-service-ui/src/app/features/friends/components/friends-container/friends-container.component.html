@@ -1,1 +1,6 @@
-<p>friends-container works!</p>
+<ng-container *ngIf="friends && friends.length; else noFriendsFound">
+  <app-friend-card *ngFor="let friend of friends" [friend]="friend"></app-friend-card>
+</ng-container>
+<ng-template #noFriendsFound>
+  <p>No friends found</p>
+</ng-template>
