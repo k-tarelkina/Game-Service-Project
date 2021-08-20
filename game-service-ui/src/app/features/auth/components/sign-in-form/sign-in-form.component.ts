@@ -32,7 +32,7 @@ export class SignInFormComponent implements OnInit {
     const {email, password} = this.loginGroup.value;
     this.authService.login(email, password)
       .subscribe({
-        next: (user) => {
+        next: () => {
           this.error = null;
         },
         error: (e) => this.handleError(e)

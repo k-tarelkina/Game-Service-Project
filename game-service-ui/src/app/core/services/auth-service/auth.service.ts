@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpService} from "../http-service/http.service";
 import {map, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
-import {BehaviorSubject, fromEvent} from "rxjs";
+import {BehaviorSubject, fromEvent, Observable} from "rxjs";
 import {User} from '../../models/user.model';
 
 @Injectable({
@@ -42,8 +42,8 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
-  get user$() {
-    return this.userSubject$.asObservable();
+  get user$(): Observable<User> {
+    return (this.userSubject$ as BehaviorSubject<User>).asObservable();
   }
 
   get userValue() {
@@ -53,11 +53,10 @@ export class AuthService {
   login(email: string, password: string) {
     return this.httpService.post(this.LOGIN_URL, {email, password})
       .pipe(
-        map((user: Partial<User>) => {
+        tap((user: Partial<User>) => {
           this.setUser(user);
           this.userSubject$.next(user as User);
           this.router.navigate(['']);
-          return user;
       }));
   }
 

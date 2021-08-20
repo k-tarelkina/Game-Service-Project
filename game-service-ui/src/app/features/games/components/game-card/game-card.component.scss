@@ -1,0 +1,17 @@
+$width: 300px;
+
+.card {
+  width: $width;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    height: $width / 4 * 3;
+    object-fit: cover;
+  }
+}
+
+.mat-card > .mat-card-actions:last-child {
+  margin-bottom: 0;
+}

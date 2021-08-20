@@ -5,12 +5,12 @@ const GamesRecord = mongoose.model('Games_Record', {
     selfId: {
         type: ObjectId,
         required: true,
-        unique: true
+        unique: true,
     },
     gamesId: {
         type: [ObjectId],
-        default: []
-    }
+        default: [],
+    },
 });
 
 module.exports = {GamesRecord};

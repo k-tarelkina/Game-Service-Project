@@ -1,1 +1,16 @@
-<p>games-catalogue-page works!</p>
+<main class="wrapper">
+  <h1>Games</h1>
+  <app-games-search-form (search)="search($event)"></app-games-search-form>
+  <div class="games-container-with-filters">
+    <section class="featured-games-section">
+      <h2>Featured Games</h2>
+      <app-featured-games-container></app-featured-games-container>
+    </section>
+    <section class="filters-section">
+      <h2>Filters</h2>
+      <app-games-filters-container (filtersChange)="filter($event)"
+                                   [isLoading]="isLoading$ | async"
+      ></app-games-filters-container>
+    </section>
+  </div>
+</main>
