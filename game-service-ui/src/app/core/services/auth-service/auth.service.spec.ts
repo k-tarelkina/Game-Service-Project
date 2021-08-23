@@ -6,10 +6,11 @@ import {Router} from "@angular/router";
 describe('AuthService', () => {
   let service: AuthService;
   let httpServiceSpy: jasmine.SpyObj<HttpService<any>>;
-  const httpSpy = jasmine.createSpyObj('HttpService', ['post', 'get']);
+  const httpSpy = {
+    get: jasmine.createSpy('get')
+  }
   let routerServiceSpy: jasmine.SpyObj<Router>;
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,7 +34,7 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('logout should log out user correctly', () => {
+  it('#logout should log out user correctly', () => {
     service.logout();
     expect(service.userValue).toBeNull();
     const localStorageItem = localStorage.getItem('user');

@@ -7,7 +7,7 @@ import {GameModel} from "../../models/game.model";
 describe('GamesService', () => {
   let service: GamesService;
   let httpServiceSpy: jasmine.SpyObj<HttpService<GameModel>>;
-  const httpSpy = jasmine.createSpyObj('HttpService', ['post', 'get']);
+  const httpSpy = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({

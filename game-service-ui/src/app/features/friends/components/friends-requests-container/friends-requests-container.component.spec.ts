@@ -1,14 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FriendsRequestsContainerComponent } from './friends-requests-container.component';
+import {FriendsService} from "../../../../core/services/friends-service/friends.service";
 
 describe('FriendsRequestsContainerComponent', () => {
   let component: FriendsRequestsContainerComponent;
   let fixture: ComponentFixture<FriendsRequestsContainerComponent>;
+  let friendsSpy = {};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FriendsRequestsContainerComponent ]
+      declarations: [ FriendsRequestsContainerComponent ],
+      providers: [
+        {
+          provide: FriendsService,
+          useValue: friendsSpy
+        }
+      ]
     })
     .compileComponents();
   });
