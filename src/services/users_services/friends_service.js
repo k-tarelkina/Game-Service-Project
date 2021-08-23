@@ -1,6 +1,6 @@
 const {FriendsRecord} = require('../../models/friends_record_model');
 
-const getFriendsRequestsByStatusForUser = async (userId, status) => {
+const getFriendsRequestsToUserByStatus = async (userId, status) => {
     return FriendsRecord.find({
         $and: [
             {friendId: userId},
@@ -8,6 +8,16 @@ const getFriendsRequestsByStatusForUser = async (userId, status) => {
         ],
     });
 };
+
+const getFriendsRequestsFromUserByStatus = async (userId, status) => {
+    return FriendsRecord.find({
+        $and: [
+            {selfId: userId},
+            {status},
+        ],
+    });
+};
+
 
 const getFriendsByUserId = async (id) => {
     return FriendsRecord.find({
@@ -47,11 +57,20 @@ const deleteUserFriends = async (id) => {
     await FriendsRecord.deleteOne({selfId: id});
 };
 
+const isFriendForUser = async (userId, possibleFriend) => {
+    const record = await FriendsRecord
+        .findOne({selfId: userId}, {friendId: possibleFriend});
+    return !!record;
+};
+
 module.exports = {
     getFriendsByUserId,
     addRequestForFriend,
     deleteFriendForUser,
     deleteUserFriends,
-    getFriendsRequestsByStatusForUser,
+    getFriendsRequestsToUserByStatus,
+    getFriendsRequestsFromUserByStatus,
     changeRequestStatus,
+    isFriendForUser,
 };
+

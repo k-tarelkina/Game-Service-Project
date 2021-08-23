@@ -12,7 +12,7 @@ import {FriendModel} from "../../../../core/models/friend.model";
 })
 export class FriendsPageComponent implements OnInit, OnDestroy {
   private searchText$ = new BehaviorSubject<string>('');
-  friends$ = new BehaviorSubject<FriendModel[]>([]);
+  friends$ = new BehaviorSubject<FriendRecordModel[]>([]);
   private subscription!: Subscription;
 
   constructor(private friendsService: FriendsService) { }
@@ -24,17 +24,9 @@ export class FriendsPageComponent implements OnInit, OnDestroy {
           if (text.length) {
             return this.friendsService.getUsersByUsername(text);
           }
-          return this.friendsService.getUserFriends()
-            .pipe(
-              map((friendsRecords: FriendRecordModel[]) => {
-                return friendsRecords.map(friendRecord => ({
-                      _id: friendRecord.friend._id,
-                      username: friendRecord.friend.username
-                    }));
-              })
-            );
+          return this.friendsService.getUserFriends();
         })
-      ).subscribe(friends => {
+      ).subscribe((friends) => {
       this.friends$.next(friends);
     })
   }
