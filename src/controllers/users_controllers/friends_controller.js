@@ -10,33 +10,39 @@ const {getFriendsByUserId,
 } = require('../../services/users_services/friends_service');
 const {asyncWrapper} = require('../../utils/async_wrapper');
 
-// eslint-disable-next-line new-cap
-const router = express.Router();
-
-router.get('/', asyncWrapper(async (req, res) => {
-    const {status, userAs = 'friend', username} = req.query;
-    let friends;
+const getFriendsByParams = async (params) => {
+    const {status, userAs = 'friend', username, currentUserId} = params;
     if (status && userAs) {
         if (userAs === 'friend') {
-            friends = await
-            getFriendsRequestsToUserByStatus(req.user._id, status);
+            return getFriendsRequestsToUserByStatus(currentUserId, status);
         } else { // userAs === 'self'
-            friends = await
-            getFriendsRequestsFromUserByStatus(req.user._id, status);
+            return getFriendsRequestsFromUserByStatus(currentUserId, status);
         }
     } else if (username) {
-        friends = await
-        getFriendsByUsernameForUser(req.user._id, username);
-    } else {
-        friends = await getFriendsByUserId(req.user._id);
+        return getFriendsByUsernameForUser(currentUserId, username);
     }
+    return await getFriendsByUserId(currentUserId);
+};
+
+const addFriendsInfoToRecords = async (friendsRecords) => {
+    const friends = [...friendsRecords];
     for (let i = 0; i < friends.length; i += 1) {
         const {friendId} = friends[i];
         const friend = await getUserById(friendId);
         const {_id, username} = friend;
         friends[i].friend = {_id, username};
     }
-    res.status(200).json(friends);
+    return friends;
+};
+
+// eslint-disable-next-line new-cap
+const router = express.Router();
+
+router.get('/', asyncWrapper(async (req, res) => {
+    const friends = await
+    getFriendsByParams({...req.query, currentUserId: req.user._id});
+    const formattedFriends = await addFriendsInfoToRecords(friends);
+    res.status(200).json(formattedFriends);
 }));
 
 router.put('/:friendId', asyncWrapper(async (req, res) => {
