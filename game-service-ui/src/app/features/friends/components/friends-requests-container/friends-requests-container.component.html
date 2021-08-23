@@ -1,7 +1,7 @@
 <ng-container *ngIf="requests$ | async; let requests; else loading">
   <ng-container *ngIf="requests.length; else noRequests">
-    <app-friend-card *ngFor="let request of requests"
-                             [friendRecord]="request"></app-friend-card>
+    <app-friend-request-card *ngFor="let request of requests"
+                             [friendRequest]="request"></app-friend-request-card>
   </ng-container>
   <ng-template #noRequests>
     <p>No requests found</p>

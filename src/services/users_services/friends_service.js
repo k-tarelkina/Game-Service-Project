@@ -56,7 +56,12 @@ const getFriendsByUserId = async (id) => {
 };
 
 const addRequestForFriend = async (selfId, friendId) => {
-    const record = new FriendsRecord({selfId, friendId});
+    let record = FriendsRecord.findOne({selfId, friendId});
+    if (record) {
+        record.status = 'PENDING';
+    } else {
+        record = new FriendsRecord({selfId, friendId});
+    }
     await record.save();
 };
 

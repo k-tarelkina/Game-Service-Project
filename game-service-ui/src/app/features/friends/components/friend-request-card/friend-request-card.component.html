@@ -1,0 +1,7 @@
+<ng-container *ngIf="friendRequest && friendRequest.friend">
+  <p>{{friendRequest.friend.username}}</p>
+  <div class="buttons-container">
+    <button mat-button color="warning">Reject</button>
+    <button mat-raised-button color="primary">Accept</button>
+  </div>
+</ng-container>

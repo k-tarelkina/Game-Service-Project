@@ -1,11 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FriendsRequestsContainerComponent } from './friends-requests-container.component';
 import {FriendsService} from "../../../../core/services/friends-service/friends.service";
+import {of} from "rxjs";
 
 describe('FriendsRequestsContainerComponent', () => {
   let component: FriendsRequestsContainerComponent;
   let fixture: ComponentFixture<FriendsRequestsContainerComponent>;
-  let friendsSpy = {};
+  let friendsSpy = {
+    getFriendsRequestsToUser: jasmine.createSpy('getFriendsByUsername',
+      () => of([]))
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

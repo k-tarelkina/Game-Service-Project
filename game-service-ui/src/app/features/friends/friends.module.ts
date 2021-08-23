@@ -9,6 +9,7 @@ import {
   FriendsRequestsContainerComponent
 } from './components/friends-requests-container/friends-requests-container.component';
 import {SharedModule} from "../../shared/shared.module";
+import { FriendRequestCardComponent } from './components/friend-request-card/friend-request-card.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {SharedModule} from "../../shared/shared.module";
     FriendsPageComponent,
     FriendsContainerComponent,
     FriendCardComponent,
-    FriendsRequestsContainerComponent
+    FriendsRequestsContainerComponent,
+    FriendRequestCardComponent
   ],
   imports: [
     CommonModule,
