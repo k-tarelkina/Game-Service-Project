@@ -2,9 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FriendsService} from "../../../../core/services/friends-service/friends.service";
 import {BehaviorSubject, Subscription} from "rxjs";
 import {FriendRecordModel} from "../../../../core/models/friend.record.model";
-import {concatMap, map} from "rxjs/operators";
+import {concatMap} from "rxjs/operators";
 import {UsersService} from "../../../../core/services/users-service/users.service";
-import {UserModel} from "../../../../core/models/user.model";
 
 @Component({
   selector: 'app-friends-page',

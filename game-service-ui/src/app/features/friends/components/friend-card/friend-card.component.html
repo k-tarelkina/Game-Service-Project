@@ -1,4 +1,4 @@
-<mat-card *ngIf="friend">
-  <p>{{friend.username}}</p>
+<mat-card *ngIf="friendRecord && friendRecord.friend">
+  <p>{{friendRecord.friend.username}}</p>
   <button mat-button>Button</button>
 </mat-card>

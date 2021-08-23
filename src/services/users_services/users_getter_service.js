@@ -7,12 +7,12 @@ const getUserById = async (id) => {
 };
 
 const getUsersByUsername = async (username, currentUserId) => {
-    return User.find({
-        $and: [
-            {username: {$regex: getSearchRegExp(username)}},
-            {_id: {$ne: currentUserId}},
-        ],
-    });
+    return User.find(
+        {
+            username: {$regex: getSearchRegExp(username)},
+            _id: {$ne: currentUserId},
+        },
+    );
 };
 
 const getUsersByIds = async (ids) => {

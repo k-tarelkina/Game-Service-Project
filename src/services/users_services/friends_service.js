@@ -2,36 +2,26 @@ const {getUsersByUsername} = require('./users_getter_service');
 const {FriendsRecord} = require('../../models/friends_record_model');
 
 const getFriendsByUsernameForUser = async (userId, username) => {
-    const usersWithThisUsername = await getUsersByUsername(username);
+    const usersWithThisUsername = await getUsersByUsername(username, userId);
+    console.log('usersWithThisUsername', usersWithThisUsername);
     const friendsRecords = [];
     for (let i = 0; i < usersWithThisUsername.length; i += 1) {
         const user = usersWithThisUsername[i];
-        const friendRecord = await FriendsRecord.find(
+        const friendRecord = await FriendsRecord.findOne(
             {selfId: userId, friendId: user._id},
         );
         if (friendRecord) {
             friendsRecords.push(friendRecord);
+        } else {
+            friendsRecords.push({
+                selfId: userId,
+                friendId: user._id,
+                status: 'EMPTY',
+            });
         }
     }
     return friendsRecords;
 };
-
-// const FriendsRecord = mongoose.model('Friends_Record', {
-//     selfId: {
-//         type: ObjectId,
-//         required: true,
-//     },
-//     friendsId: {
-//         type: ObjectId,
-//         required: true,
-//     },
-//     status: {
-//         type: String,
-//         uppercase: true,
-//         enum: FRIEND_REQUEST_STATUS,
-//         default: 'PENDING',
-//     },
-// });
 
 const getFriendsRequestsToUserByStatus = async (userId, status) => {
     return FriendsRecord.find({
@@ -109,5 +99,6 @@ module.exports = {
     getFriendsRequestsFromUserByStatus,
     changeRequestStatus,
     isFriendForUser,
+    getFriendsByUsernameForUser,
 };
 

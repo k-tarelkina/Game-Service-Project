@@ -1,5 +1,5 @@
 const express = require('express');
-const {friendsMiddleware} = require('../../middlewares/friends_middleware');
+const {getUserById} = require('../../services/users_services/users_getter_service');
 const {getFriendsByUserId,
     deleteFriendForUser,
     addRequestForFriend,
@@ -15,25 +15,29 @@ const router = express.Router();
 
 router.get('/', asyncWrapper(async (req, res) => {
     const {status, userAs = 'friend', username} = req.query;
-    let users;
+    let friends;
     if (status && userAs) {
         if (userAs === 'friend') {
-            users = await
+            friends = await
             getFriendsRequestsToUserByStatus(req.user._id, status);
         } else { // userAs === 'self'
-            users = await
+            friends = await
             getFriendsRequestsFromUserByStatus(req.user._id, status);
         }
     } else if (username) {
-        users = await
+        friends = await
         getFriendsByUsernameForUser(req.user._id, username);
     } else {
-        users = await getFriendsByUserId(req.user._id);
+        friends = await getFriendsByUserId(req.user._id);
     }
-    res.status(200).json(users);
+    for (let i = 0; i < friends.length; i += 1) {
+        const {friendId} = friends[i];
+        const friend = await getUserById(friendId);
+        const {_id, username} = friend;
+        friends[i].friend = {_id, username};
+    }
+    res.status(200).json(friends);
 }));
-
-router.use(friendsMiddleware);
 
 router.put('/:friendId', asyncWrapper(async (req, res) => {
     const {friendId} = req.params;

@@ -5,6 +5,7 @@ const FRIEND_REQUEST_STATUS = [
     'PENDING',
     'ACCEPTED',
     'REJECTED',
+    'EMPTY',
 ];
 
 const FriendsRecord = mongoose.model('Friends_Record', {

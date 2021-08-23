@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import { FriendModel } from 'src/app/core/models/friend.model';
+import {FriendRecordModel} from "../../../../core/models/friend.record.model";
 
 @Component({
   selector: 'app-friends-container',
@@ -7,5 +8,5 @@ import { FriendModel } from 'src/app/core/models/friend.model';
   styleUrls: ['./friends-container.component.scss']
 })
 export class FriendsContainerComponent {
-  @Input() friends!: FriendModel[];
+  @Input() friends!: FriendRecordModel[];
 }
