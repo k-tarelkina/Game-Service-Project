@@ -3,5 +3,6 @@ export interface UserModel {
   email: string,
   username: string,
   password: string,
-  token?: string
+  token?: string,
+  isFriendWithCurrentUser?: boolean,
 }

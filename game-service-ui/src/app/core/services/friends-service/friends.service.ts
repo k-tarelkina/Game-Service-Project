@@ -11,16 +11,26 @@ import {FriendModel} from "../../models/friend.model";
 })
 export class FriendsService {
   private _FRIENDS_URL = '/api/users/me/friends';
-  private _USERS_URL = '/api/users';
 
   constructor(private httpService: HttpService<FriendRecordModel | FriendModel | UserModel>) { }
 
-  getFriendsRequests(): Observable<FriendRecordModel[]> {
+  getFriendsRequestsToUser(): Observable<FriendRecordModel[]> {
     return this.httpService
       .get(this._FRIENDS_URL, {params: {status: 'PENDING'}}) as Observable<FriendRecordModel[]>;
   }
 
+  getFriendsRequestsFromUser(): Observable<FriendRecordModel[]> {
+    return this.httpService
+      .get(this._FRIENDS_URL, {params: {status: 'PENDING', userAs: 'self'}}) as Observable<FriendRecordModel[]>;
+  }
+
   getUserFriends(): Observable<FriendRecordModel[]> {
-    return this.httpService.get(this._FRIENDS_URL) as Observable<FriendRecordModel[]>;
+    return this.httpService
+      .get(this._FRIENDS_URL) as Observable<FriendRecordModel[]>;
+  }
+
+  getFriendsByUsername(username: string): Observable<FriendRecordModel[]>{
+    return this.httpService
+      .get(this._FRIENDS_URL, {params: {username}}) as Observable<FriendRecordModel[]>;
   }
 }

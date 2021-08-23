@@ -6,6 +6,7 @@ const {getFriendsByUserId,
     changeRequestStatus,
     getFriendsRequestsToUserByStatus,
     getFriendsRequestsFromUserByStatus,
+    getFriendsByUsernameForUser,
 } = require('../../services/users_services/friends_service');
 const {asyncWrapper} = require('../../utils/async_wrapper');
 
@@ -13,7 +14,7 @@ const {asyncWrapper} = require('../../utils/async_wrapper');
 const router = express.Router();
 
 router.get('/', asyncWrapper(async (req, res) => {
-    const {status, userAs = 'friend'} = req.query;
+    const {status, userAs = 'friend', username} = req.query;
     let users;
     if (status && userAs) {
         if (userAs === 'friend') {
@@ -23,6 +24,9 @@ router.get('/', asyncWrapper(async (req, res) => {
             users = await
             getFriendsRequestsFromUserByStatus(req.user._id, status);
         }
+    } else if (username) {
+        users = await
+        getFriendsByUsernameForUser(req.user._id, username);
     } else {
         users = await getFriendsByUserId(req.user._id);
     }

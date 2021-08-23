@@ -1,4 +1,3 @@
-const {isFriendForUser} = require('./friends_service');
 const {getSearchRegExp} = require('../../utils/reg_exp');
 const {User} = require('../../models/user_model');
 const {InvalidCredentialsError} = require('../../utils/errors');
@@ -8,15 +7,11 @@ const getUserById = async (id) => {
 };
 
 const getUsersByUsername = async (username, currentUserId) => {
-    const users = await User.find({
+    return User.find({
         $and: [
             {username: {$regex: getSearchRegExp(username)}},
             {_id: {$ne: currentUserId}},
         ],
-    });
-    return users.map(async (user) => {
-        const isFriendWithCurrentUser = await isFriendForUser(currentUserId);
-        return {...user._doc, isFriendWithCurrentUser};
     });
 };
 

@@ -4,7 +4,7 @@ interface Friend {
 }
 
 export interface FriendRecordModel {
-  selfId: string,
+  selfId?: string,
   friend: Friend,
   status: string
 }
