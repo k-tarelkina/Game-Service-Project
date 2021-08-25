@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../../../core/services/auth-service/auth.service";
+import {Observable} from "rxjs";
+import {UserModel} from "../../../../core/models/user.model";
 
 @Component({
   selector: 'app-settings-page',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent implements OnInit {
+  user!: UserModel | null;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.user = this.authService.userValue;
+  }
+
+  logUser(): void {
+    console.log(this.user);
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpService} from "../http-service/http.service";
 import {map, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
-import {BehaviorSubject, fromEvent, Observable} from "rxjs";
+import {BehaviorSubject, fromEvent, Observable, Subject} from "rxjs";
 import {UserModel} from '../../models/user.model';
 
 @Injectable({
@@ -13,11 +13,11 @@ export class AuthService {
   private LOGIN_URL = `${this.URL}/login`;
   private SIGN_UP_URL = `${this.URL}/sign_up`;
 
-  private userSubject$: BehaviorSubject<UserModel | null>;
+  private userSubject$: BehaviorSubject<UserModel | null> = new BehaviorSubject<UserModel | null>(null);
 
   constructor(private httpService: HttpService<Partial<UserModel> | UserModel>,
               private router: Router) {
-    this.userSubject$ = new BehaviorSubject(this.getUser());
+    this.userSubject$.next(this.getUser());
     this.listenToLocalStorageClear();
   }
 
