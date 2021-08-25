@@ -1,14 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FriendRequestCardComponent } from './friend-request-card.component';
+import {FriendsService} from "../../../../core/services/friends-service/friends.service";
 
 describe('FriendRequestCardComponent', () => {
   let component: FriendRequestCardComponent;
   let fixture: ComponentFixture<FriendRequestCardComponent>;
+  let friendsSpy = jasmine.createSpyObj('FriendsService',
+    ['acceptFriendRequest', 'deleteFriend']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FriendRequestCardComponent ]
+      declarations: [ FriendRequestCardComponent ],
+      providers: [
+        {
+          provide: FriendsService,
+          useValue: friendsSpy
+        }
+      ]
     })
     .compileComponents();
   });

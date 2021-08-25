@@ -6,10 +6,7 @@ import {of} from "rxjs";
 describe('FriendsRequestsContainerComponent', () => {
   let component: FriendsRequestsContainerComponent;
   let fixture: ComponentFixture<FriendsRequestsContainerComponent>;
-  let friendsSpy = {
-    getFriendsRequestsToUser: jasmine.createSpy('getFriendsByUsername',
-      () => of([]))
-  }
+  let friendsSpy = {}
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

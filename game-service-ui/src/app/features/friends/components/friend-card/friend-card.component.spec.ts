@@ -6,12 +6,8 @@ import {FriendsService} from "../../../../core/services/friends-service/friends.
 describe('FriendCardComponent', () => {
   let component: FriendCardComponent;
   let fixture: ComponentFixture<FriendCardComponent>;
-  let friendsSpy = {
-    deleteFriend: jasmine.createSpy('deleteFriend',
-      () => of({})),
-    addFriendRequestFromUser: jasmine.createSpy('getUserFriends',
-      () =>  of({}))
-  }
+  let friendsSpy = jasmine.createSpyObj('FriendsService',
+    ['addFriendRequestFromUser', 'deleteFriend']);
   const actionsCSSClass = '.actions';
 
   beforeEach(async () => {
@@ -50,7 +46,7 @@ describe('FriendCardComponent', () => {
       status: 'PENDING'
     };
     fixture.detectChanges();
-    const element = fixture.debugElement.nativeElement.querySelector(actionsCSSClass);
+    const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLParagraphElement);
     expect(element.textContent.trim()).toEqual('PENDING');
   })
@@ -64,7 +60,7 @@ describe('FriendCardComponent', () => {
       status: 'ACCEPTED'
     };
     fixture.detectChanges();
-    const element = fixture.debugElement.nativeElement.querySelector(actionsCSSClass);
+    const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLButtonElement);
     expect(element.textContent.trim()).toEqual('Remove friend');
   })
@@ -78,7 +74,7 @@ describe('FriendCardComponent', () => {
       status: 'EMPTY'
     };
     fixture.detectChanges();
-    const element = fixture.debugElement.nativeElement.querySelector(actionsCSSClass);
+    const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLButtonElement);
     expect(element.textContent.trim()).toEqual('Add friend');
   })
@@ -92,7 +88,7 @@ describe('FriendCardComponent', () => {
       status: 'REJECTED'
     };
     fixture.detectChanges();
-    const element = fixture.debugElement.nativeElement.querySelector(actionsCSSClass);
+    const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLButtonElement);
     expect(element.textContent.trim()).toEqual('Add friend');
   })
