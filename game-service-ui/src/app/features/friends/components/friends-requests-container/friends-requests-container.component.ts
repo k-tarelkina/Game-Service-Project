@@ -14,6 +14,6 @@ export class FriendsRequestsContainerComponent implements OnInit {
   constructor(private friendService: FriendsService) { }
 
   ngOnInit(): void {
-    this.requests$ = of([]);// this.friendService.getFriendsRequestsToUser();
+    this.requests$ = this.friendService.requests$;
   }
 }

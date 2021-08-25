@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FriendsService} from "../../../../core/services/friends-service/friends.service";
-import {BehaviorSubject, Subscription} from "rxjs";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import {FriendRecordModel} from "../../../../core/models/friend.record.model";
 import {concatMap} from "rxjs/operators";
 
@@ -11,23 +11,22 @@ import {concatMap} from "rxjs/operators";
 })
 export class FriendsPageComponent implements OnInit, OnDestroy {
   private searchText$ = new BehaviorSubject<string>('');
-  friends$ = new BehaviorSubject<FriendRecordModel[]>([]);
+  friends$!: Observable<FriendRecordModel[]>;
   private subscription!: Subscription;
 
   constructor(private friendsService: FriendsService) { }
 
   ngOnInit(): void {
+    this.friends$ = this.friendsService.friends$;
     this.subscription = this.searchText$
       .pipe(
         concatMap(text => {
           if (text.length) {
             return this.friendsService.getFriendsByUsername(text);
           }
-          return this.friendsService.getUserFriends();
+          return this.friendsService.getAllFriends();
         })
-      ).subscribe((friends) => {
-      this.friends$.next(friends);
-    })
+      ).subscribe();
   }
 
   search(searchText: string) {

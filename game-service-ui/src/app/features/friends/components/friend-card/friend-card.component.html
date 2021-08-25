@@ -4,7 +4,7 @@
     <p *ngSwitchCase="'PENDING'" class="actions">
       PENDING
     </p>
-    <button mat-button color="warning"
+    <button mat-button color="warn"
             class="actions"
             (click)="removeFriend()"
             *ngSwitchCase="'ACCEPTED'">
@@ -18,4 +18,3 @@
     </button>
   </ng-container>
 </mat-card>
-<p (click)="logFriend()">{{friendRecord}}</p>

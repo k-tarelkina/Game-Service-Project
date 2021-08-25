@@ -1,5 +1,4 @@
 const express = require('express');
-const {getUserById} = require('../../services/users_services/users_getter_service');
 const {getFriendsByUserId,
     deleteFriendForUser,
     addRequestForFriend,
@@ -7,6 +6,7 @@ const {getFriendsByUserId,
     getFriendsRequestsToUserByStatus,
     getFriendsRequestsFromUserByStatus,
     getFriendsByUsernameForUser,
+    addFriendsInfoToRecords,
 } = require('../../services/users_services/friends_service');
 const {asyncWrapper} = require('../../utils/async_wrapper');
 
@@ -24,26 +24,13 @@ const getFriendsByParams = async (params) => {
     return getFriendsByUserId(currentUserId);
 };
 
-const addFriendsInfoToRecords = async (friendsRecords) => {
-    const formattedFriends = [];
-    for (const friendRecord of friendsRecords) {
-        const friendRecordCopy = Object.assign({}, friendRecord._doc);
-        const {friendId} = friendRecordCopy;
-        const friend = await getUserById(friendId);
-        const {_id, username} = friend;
-        friendRecordCopy.friend = {_id, username};
-        formattedFriends.push(friendRecordCopy);
-    }
-    return formattedFriends;
-};
-
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.get('/', asyncWrapper(async (req, res) => {
     const friends = await getFriendsByParams(
         {...req.query, currentUserId: req.user._id});
-    const formattedFriends = await addFriendsInfoToRecords(friends);
+    const formattedFriends = await addFriendsInfoToRecords(req.user._id, friends);
     res.status(200).json(formattedFriends);
 }));
 

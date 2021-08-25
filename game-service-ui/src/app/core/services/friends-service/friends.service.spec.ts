@@ -51,8 +51,8 @@ describe('FriendsService', () => {
       {params: {status: 'PENDING', userAs: 'self'}});
   })
 
-  it('#getUserFriends', () => {
-    service.getUserFriends();
+  it('#getAllFriends', () => {
+    service.getAllFriends();
     expect(httpServiceSpy.get).toHaveBeenCalledWith(_FRIENDS_URL);
   })
 

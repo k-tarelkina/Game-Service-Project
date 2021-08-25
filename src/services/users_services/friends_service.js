@@ -1,5 +1,35 @@
+const {getUserById} = require('./users_getter_service');
 const {getUsersByUsername} = require('./users_getter_service');
 const {FriendsRecord} = require('../../models/friends_record_model');
+
+const getFriendId = (currentUserId, friendRecord) => {
+    const {friendId, selfId} = friendRecord;
+    return String(currentUserId) === String(selfId) ? friendId : selfId;
+};
+
+const addFriendInfoToRecord = async (currentUserId, friendRecord) => {
+    const friendRecordCopy = Object.assign({}, friendRecord._doc);
+    const idOfFriendToFind = getFriendId(currentUserId, friendRecordCopy);
+    const friend = await getUserById(idOfFriendToFind);
+    if (friend) {
+        const {_id, username} = friend;
+        friendRecordCopy.friend = {_id, username};
+        return friendRecordCopy;
+    }
+    return null;
+};
+
+const addFriendsInfoToRecords = async (currentUserId, friendsRecords) => {
+    const formattedFriends = [];
+    for (const friendRecord of friendsRecords) {
+        const friendRecordFormatted = await addFriendInfoToRecord(currentUserId,
+            friendRecord);
+        if (friendRecordFormatted) {
+            formattedFriends.push(friendRecordFormatted);
+        }
+    }
+    return formattedFriends;
+};
 
 const getFriendsByUsernameForUser = async (userId, username) => {
     const usersWithThisUsername = await getUsersByUsername(username, userId);
@@ -12,11 +42,11 @@ const getFriendsByUsernameForUser = async (userId, username) => {
         if (friendRecord) {
             friendsRecords.push(friendRecord);
         } else {
-            friendsRecords.push({
+            friendsRecords.push(new FriendsRecord({
                 selfId: userId,
                 friendId: user._id,
                 status: 'EMPTY',
-            });
+            }));
         }
     }
     return friendsRecords;
@@ -42,12 +72,20 @@ const getFriendsRequestsFromUserByStatus = async (userId, status) => {
 
 const getFriendsByUserId = async (id) => {
     return FriendsRecord.find({
-        $and: [
+        $or: [
             {
-                $or: [{selfId: id}, {friendId: id}],
+                $and: [
+                    {
+                        $or: [{selfId: id}, {friendId: id}],
+                    },
+                    {status: 'ACCEPTED'},
+                ],
             },
             {
-                status: 'ACCEPTED',
+                $and: [
+                    {selfId: id},
+                    {status: 'PENDING'},
+                ],
             },
         ],
     });
@@ -103,5 +141,6 @@ module.exports = {
     changeRequestStatus,
     isFriendForUser,
     getFriendsByUsernameForUser,
+    addFriendsInfoToRecords,
 };
 
