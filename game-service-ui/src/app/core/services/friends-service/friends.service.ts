@@ -33,4 +33,19 @@ export class FriendsService {
       .get(this._FRIENDS_URL,
         {params: {username}}) as Observable<FriendRecordModel[]>;
   }
+
+  addFriendRequestFromUser(friendId: string): Observable<Object> {
+    return this.httpService
+      .put(`${(this._FRIENDS_URL)}/${friendId}`);
+  }
+
+  acceptFriendRequest(friendId: string): Observable<Object> {
+    return this.httpService
+      .patch(`${(this._FRIENDS_URL)}/${friendId}`, {status: 'ACCEPTED'});
+  }
+
+  deleteFriend(friendId: string): Observable<Object> {
+    return this.httpService
+      .delete(`${(this._FRIENDS_URL)}/${friendId}`);
+  }
 }

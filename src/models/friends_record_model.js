@@ -13,7 +13,7 @@ const FriendsRecord = mongoose.model('Friends_Record', {
         type: ObjectId,
         required: true,
     },
-    friendsId: {
+    friendId: {
         type: ObjectId,
         required: true,
     },

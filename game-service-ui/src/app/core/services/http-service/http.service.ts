@@ -38,4 +38,12 @@ export class HttpService<T> {
   put(url: string, data?: T): Observable<T> {
     return this.http.put<T>(this.completeUrl(url), data);
   }
+
+  patch(url: string, data: object): Observable<object> {
+    return this.http.patch(url, data);
+  }
+
+  delete(url: string): Observable<object> {
+    return this.http.delete(url);
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FriendsService} from "../../../../core/services/friends-service/friends.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {FriendRecordModel} from "../../../../core/models/friend.record.model";
 
 @Component({
@@ -14,6 +14,6 @@ export class FriendsRequestsContainerComponent implements OnInit {
   constructor(private friendService: FriendsService) { }
 
   ngOnInit(): void {
-    this.requests$ = this.friendService.getFriendsRequestsToUser();
+    this.requests$ = of([]);// this.friendService.getFriendsRequestsToUser();
   }
 }

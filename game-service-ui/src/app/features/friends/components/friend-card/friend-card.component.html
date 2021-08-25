@@ -4,11 +4,18 @@
     <p *ngSwitchCase="'PENDING'" class="actions">
       PENDING
     </p>
-    <button mat-button color="warning" class="actions" *ngSwitchCase="'ACCEPTED'">
+    <button mat-button color="warning"
+            class="actions"
+            (click)="removeFriend()"
+            *ngSwitchCase="'ACCEPTED'">
       Remove friend
     </button>
-    <button mat-raised-button color="primary" class="actions" *ngSwitchDefault>
+    <button mat-raised-button color="primary"
+            class="actions"
+            (click)="addFriend()"
+            *ngSwitchDefault>
       Add friend
     </button>
   </ng-container>
 </mat-card>
+<p (click)="logFriend()">{{friendRecord}}</p>

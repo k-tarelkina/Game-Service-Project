@@ -21,26 +21,28 @@ const getFriendsByParams = async (params) => {
     } else if (username) {
         return getFriendsByUsernameForUser(currentUserId, username);
     }
-    return await getFriendsByUserId(currentUserId);
+    return getFriendsByUserId(currentUserId);
 };
 
 const addFriendsInfoToRecords = async (friendsRecords) => {
-    const friends = [...friendsRecords];
-    for (let i = 0; i < friends.length; i += 1) {
-        const {friendId} = friends[i];
+    const formattedFriends = [];
+    for (const friendRecord of friendsRecords) {
+        const friendRecordCopy = Object.assign({}, friendRecord._doc);
+        const {friendId} = friendRecordCopy;
         const friend = await getUserById(friendId);
         const {_id, username} = friend;
-        friends[i].friend = {_id, username};
+        friendRecordCopy.friend = {_id, username};
+        formattedFriends.push(friendRecordCopy);
     }
-    return friends;
+    return formattedFriends;
 };
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.get('/', asyncWrapper(async (req, res) => {
-    const friends = await
-    getFriendsByParams({...req.query, currentUserId: req.user._id});
+    const friends = await getFriendsByParams(
+        {...req.query, currentUserId: req.user._id});
     const formattedFriends = await addFriendsInfoToRecords(friends);
     res.status(200).json(formattedFriends);
 }));
