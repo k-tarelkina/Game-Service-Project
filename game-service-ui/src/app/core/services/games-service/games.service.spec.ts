@@ -3,11 +3,13 @@ import { TestBed } from '@angular/core/testing';
 import { GamesService } from './games.service';
 import {HttpService} from "../http-service/http.service";
 import {GameModel} from "../../models/game.model";
+import {of} from "rxjs";
 
 describe('GamesService', () => {
   let service: GamesService;
   let httpServiceSpy: jasmine.SpyObj<HttpService<GameModel>>;
-  const httpSpy = {};
+  const httpSpy = jasmine.createSpyObj('HttpService', ['get']);
+  httpSpy.get.and.returnValue(of([]));
 
   beforeEach(() => {
     TestBed.configureTestingModule({

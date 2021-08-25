@@ -8,7 +8,7 @@ import { GameCardComponent } from './components/game-card/game-card.component';
 import { GamesContainerComponent } from './components/games-container/games-container.component';
 import { FeaturedGamesContainerComponent } from './components/featured-games-container/featured-games-container.component';
 import {SharedModule} from "../../shared/shared.module";
-import { UserGamesContainerComponent } from './components/user-games-container/user-games-container.component';
+import { MyGamesContainerComponent } from './components/my-games-container/my-games-container.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { GamesPriceFilterComponent } from './components/games-price-filter/games-price-filter.component';
 import { GamesTagsFilterComponent } from './components/games-tags-filter/games-tags-filter.component';
@@ -22,7 +22,7 @@ import {MatSliderModule} from '@angular/material/slider';
     GameCardComponent,
     GamesContainerComponent,
     FeaturedGamesContainerComponent,
-    UserGamesContainerComponent,
+    MyGamesContainerComponent,
     GamesPriceFilterComponent,
     GamesTagsFilterComponent,
     GamesFiltersContainerComponent

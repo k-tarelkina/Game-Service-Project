@@ -13,9 +13,9 @@ export class GamesTagsFilterComponent implements OnInit, OnDestroy {
   private _currentCheckedTags = new Set<string>();
   private _subscription = new Subscription();
 
-  allTags$!: Observable<string[]>;
   @Input() disabled: boolean = false;
   @Output() tagsChange = new EventEmitter<string[]>();
+  allTags$!: Observable<string[]>;
 
   constructor(private tagsService: GamesTagsService) { }
 

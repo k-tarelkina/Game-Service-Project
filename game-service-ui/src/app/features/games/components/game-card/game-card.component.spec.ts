@@ -6,12 +6,17 @@ import {GamesService} from "../../../../core/services/games-service/games.servic
 describe('GameCardComponent', () => {
   let component: GameCardComponent;
   let fixture: ComponentFixture<GameCardComponent>;
-  let gamesServiceSpy:  jasmine.SpyObj<GamesService>;
-  let gamesSpy = jasmine.createSpyObj('GamesService', [''])
+  const gamesSpy = jasmine.createSpyObj('GamesService', ['addGameToLibrary$'])
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameCardComponent ]
+      declarations: [ GameCardComponent ],
+      providers: [
+        {
+          provide: GamesService,
+          useValue: gamesSpy
+        }
+      ]
     })
     .compileComponents();
   });

@@ -7,7 +7,7 @@ import {catchError, concatMap, tap} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class UserGamesService {
+export class MyGamesService {
   private MY_GAMES_URL = '/api/users/me/games';
 
   private gamesSubject$ = new BehaviorSubject<GameModel[]>([]);

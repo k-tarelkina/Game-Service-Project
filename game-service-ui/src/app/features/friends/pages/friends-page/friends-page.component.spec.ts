@@ -6,12 +6,10 @@ import {of} from "rxjs";
 describe('FriendsPageComponent', () => {
   let component: FriendsPageComponent;
   let fixture: ComponentFixture<FriendsPageComponent>;
-  let friendsSpy = {
-    getFriendsByUsername: jasmine.createSpy('getFriendsByUsername',
-      () => of([])),
-    getUserFriends: jasmine.createSpy('getUserFriends',
-      () =>  of([]))
-  }
+  let friendsSpy = jasmine.createSpyObj('FriendsService',
+    ['getFriendsByUsername', 'getAllFriends']);
+  friendsSpy.getAllFriends.and.returnValue(of([]));
+  friendsSpy.getFriendsByUsername.and.returnValue(of([]));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

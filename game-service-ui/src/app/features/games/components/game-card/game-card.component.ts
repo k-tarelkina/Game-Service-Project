@@ -1,14 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {GameModel} from "../../../../core/models/game.model";
 import {GamesService} from "../../../../core/services/games-service/games.service";
 import {environment} from "../../../../../environments/environment";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-game-card',
   templateUrl: './game-card.component.html',
   styleUrls: ['./game-card.component.scss']
 })
-export class GameCardComponent {
+export class GameCardComponent implements OnDestroy {
+  private subscription = new Subscription();
+
   @Input() game!: GameModel;
   picturePlaceholder = '/assets/image-placeholder-icon.png';
   addedToLibrary = this.game?.addedToCurrentUser || false;
@@ -24,7 +27,8 @@ export class GameCardComponent {
   }
 
   addToLibrary() {
-    this.gamesService.addGameToLibrary$(this.game._id).subscribe();
+    const sub = this.gamesService.addGameToLibrary$(this.game._id).subscribe();
+    this.subscription.add(sub);
   }
 
   copyToClipboard() {
@@ -34,5 +38,9 @@ export class GameCardComponent {
 
   download() {
     alert('Download has started');
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
