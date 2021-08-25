@@ -35,7 +35,15 @@ export class HttpService<T> {
     return this.http.post<T>(this.completeUrl(url), data);
   }
 
-  put(url: string, data?: T): Observable<T> {
+  put(url: string, data?: T): Observable<T | Object> {
     return this.http.put<T>(this.completeUrl(url), data);
+  }
+
+  patch(url: string, data: Object): Observable<any> {
+    return this.http.patch(this.completeUrl(url), data);
+  }
+
+  delete(url: string): Observable<any> {
+    return this.http.delete(this.completeUrl(url));
   }
 }

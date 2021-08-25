@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
-import {Game} from "../../../../core/models/game.model";
+import {GameModel} from "../../../../core/models/game.model";
 import {GamesService} from "../../../../core/services/games-service/games.service";
 
 @Component({
@@ -9,7 +9,7 @@ import {GamesService} from "../../../../core/services/games-service/games.servic
   styleUrls: ['./featured-games-container.component.scss']
 })
 export class FeaturedGamesContainerComponent implements OnInit {
-  games$!: Observable<Game[]>;
+  games$!: Observable<GameModel[]>;
 
   constructor(private gamesService: GamesService) { }
 

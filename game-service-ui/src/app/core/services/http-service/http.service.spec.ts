@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from './http.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
+import {HttpClient} from "@angular/common/http";
 
 describe('HttpService', () => {
   let service: HttpService<any>;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,6 +15,8 @@ describe('HttpService', () => {
       ]
     });
     service = TestBed.inject(HttpService);
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {

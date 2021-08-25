@@ -1,1 +1,1 @@
-# Game-Service-Project
+# GameModel-Service-Project

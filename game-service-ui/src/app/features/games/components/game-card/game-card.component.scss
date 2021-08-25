@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $width: 300px;
 
 .card {
@@ -7,7 +9,7 @@ $width: 300px;
   align-items: center;
 
   img {
-    height: $width / 4 * 3;
+    height: math.div($width, 4) * 3;
     object-fit: cover;
   }
 }

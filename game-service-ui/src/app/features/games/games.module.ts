@@ -9,7 +9,6 @@ import { GamesContainerComponent } from './components/games-container/games-cont
 import { FeaturedGamesContainerComponent } from './components/featured-games-container/featured-games-container.component';
 import {SharedModule} from "../../shared/shared.module";
 import { UserGamesContainerComponent } from './components/user-games-container/user-games-container.component';
-import { GamesSearchFormComponent } from './components/games-search-form/games-search-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { GamesPriceFilterComponent } from './components/games-price-filter/games-price-filter.component';
 import { GamesTagsFilterComponent } from './components/games-tags-filter/games-tags-filter.component';
@@ -24,7 +23,6 @@ import {MatSliderModule} from '@angular/material/slider';
     GamesContainerComponent,
     FeaturedGamesContainerComponent,
     UserGamesContainerComponent,
-    GamesSearchFormComponent,
     GamesPriceFilterComponent,
     GamesTagsFilterComponent,
     GamesFiltersContainerComponent

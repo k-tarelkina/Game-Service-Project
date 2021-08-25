@@ -1,4 +1,4 @@
-const {getSearchRegExp} = require("../../utils/reg_exp");
+const {getSearchRegExp} = require('../../utils/reg_exp');
 const {User} = require('../../models/user_model');
 const {InvalidCredentialsError} = require('../../utils/errors');
 
@@ -6,9 +6,14 @@ const getUserById = async (id) => {
     return User.findOne({_id: id});
 };
 
-const getUsersByUsername = async (username) => {
-    return User.find({username: {$regex: getSearchRegExp(username)}});
-}
+const getUsersByUsername = async (username, currentUserId) => {
+    return User.find(
+        {
+            username: {$regex: getSearchRegExp(username)},
+            _id: {$ne: currentUserId},
+        },
+    );
+};
 
 const getUsersByIds = async (ids) => {
     const users = [];
@@ -31,5 +36,5 @@ module.exports = {
     getUserById,
     getUsersByIds,
     getUserByEmail,
-    getUsersByUsername
+    getUsersByUsername,
 };

@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Game} from "../../../../core/models/game.model";
+import {GameModel} from "../../../../core/models/game.model";
 
 @Component({
   selector: 'app-games-container',
@@ -7,5 +7,5 @@ import {Game} from "../../../../core/models/game.model";
   styleUrls: ['./games-container.component.scss']
 })
 export class GamesContainerComponent {
-  @Input() games!: Game[];
+  @Input() games!: GameModel[];
 }

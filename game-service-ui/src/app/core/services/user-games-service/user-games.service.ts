@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {Game} from "../../models/game.model";
+import {GameModel} from "../../models/game.model";
 import {HttpService} from "../http-service/http.service";
 import {catchError, concatMap, tap} from "rxjs/operators";
 
@@ -10,9 +10,9 @@ import {catchError, concatMap, tap} from "rxjs/operators";
 export class UserGamesService {
   private MY_GAMES_URL = '/api/users/me/games';
 
-  private gamesSubject$ = new BehaviorSubject<Game[]>([]);
+  private gamesSubject$ = new BehaviorSubject<GameModel[]>([]);
 
-  constructor(private httpService: HttpService<Game>) {
+  constructor(private httpService: HttpService<GameModel>) {
     this.preloadGames();
   }
 
@@ -29,15 +29,15 @@ export class UserGamesService {
       });
   }
 
-  get games$(): Observable<Game[]> {
+  get games$(): Observable<GameModel[]> {
     return this.gamesSubject$.asObservable();
   }
 
-  getUserGames$(): Observable<Game[]> {
-    return this.httpService.get(this.MY_GAMES_URL) as Observable<Game[]>;
+  getUserGames$(): Observable<GameModel[]> {
+    return this.httpService.get(this.MY_GAMES_URL) as Observable<GameModel[]>;
   }
 
-  addGameToLibrary$(gameId: string): Observable<Game[]> {
+  addGameToLibrary$(gameId: string): Observable<GameModel[]> {
     const url = `${this.MY_GAMES_URL}/${gameId}`;
     return this.httpService.put(url)
       .pipe(

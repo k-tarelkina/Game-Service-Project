@@ -1,7 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {GamesOptions, GamesService} from "../../../../core/services/games-service/games.service";
 import {Subject, Subscription} from "rxjs";
-import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-games-catalogue-page',
@@ -14,8 +13,7 @@ export class GamesCataloguePageComponent implements OnDestroy {
   private subscription = new Subscription();
   isLoading$ = new Subject<boolean>();
 
-  constructor(private gamesService: GamesService) {
-  }
+  constructor(private gamesService: GamesService) {}
 
   applyOptionsToGames() {
     this.subscription.add(
