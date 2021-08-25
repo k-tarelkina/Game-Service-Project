@@ -1,3 +1,3 @@
 export interface ResponseBody {
-  message: string,
+  message?: string,
 }

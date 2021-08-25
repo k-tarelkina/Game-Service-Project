@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { FriendsService } from './friends.service';
 import {HttpService} from "../http-service/http.service";
 import {FriendRecordModel} from "../../models/friend.record.model";
@@ -9,14 +8,12 @@ describe('FriendsService', () => {
   const _FRIENDS_URL = '/api/users/me/friends';
   let service: FriendsService;
   let httpServiceSpy: jasmine.SpyObj<HttpService<FriendRecordModel>>;
+  const httpSpy = jasmine.createSpyObj('HttpService', ['get']);
+  httpSpy.get.and.returnValue(of([]));
 
   beforeEach(() => {
-    const httpSpy = {
-      get: jasmine.createSpy('get')
-    };
     TestBed.configureTestingModule({
       providers: [
-        FriendsService,
         {
           provide: HttpService,
           useValue: httpSpy
