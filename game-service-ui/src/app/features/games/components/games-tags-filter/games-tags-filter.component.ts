@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {GamesTagsService} from "../../../../core/services/games-tags-service/games-tags.service";
-import {BehaviorSubject, Observable, Subscription} from "rxjs";
-import { debounceTime} from "rxjs/operators";
+import {Subscription} from "rxjs";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-games-tags-filter',
@@ -9,41 +9,49 @@ import { debounceTime} from "rxjs/operators";
   styleUrls: ['./games-tags-filter.component.scss']
 })
 export class GamesTagsFilterComponent implements OnInit, OnDestroy {
-  private _tagsDelaySender = new BehaviorSubject<Set<string>>(new Set<string>());
-  private _currentCheckedTags = new Set<string>();
-  private _subscription = new Subscription();
-
+  private _subscriptions = new Subscription();
   @Input() disabled: boolean = false;
   @Output() tagsChange = new EventEmitter<string[]>();
-  allTags$!: Observable<string[]>;
+  allTags: string[] = [];
+  isLoading = true;
+  tagsFormGroup = this.fb.group({});
 
-  constructor(private tagsService: GamesTagsService) { }
+  constructor(private tagsService: GamesTagsService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.allTags$ = this.tagsService.getAllTags$();
-    this.subscribeToTagsSender();
-  }
-
-  subscribeToTagsSender() {
-    const sub = this._tagsDelaySender
-      .pipe(
-        debounceTime(1000)
-      ).subscribe(tags => {
-        this.tagsChange.emit([...tags])
+    const sub = this.tagsService.getAllTags$()
+      .subscribe((tags) => {
+        this.allTags = tags;
+        tags.forEach(tag => {
+          this.tagsFormGroup.addControl(tag, this.fb.control(false));
+        })
+        this.isLoading = false;
       });
-    this._subscription.add(sub);
+    this._subscriptions.add(sub);
   }
 
-  handleTag(tag: string, checked: boolean) {
-    if (checked) {
-      this._currentCheckedTags.add(tag);
-    } else if (this._currentCheckedTags.has(tag)){
-      this._currentCheckedTags.delete(tag);
-    }
-    this._tagsDelaySender.next(this._currentCheckedTags);
+  private getSelectedTags(controls: Object) {
+    return Object.entries(controls)
+      .filter(([tagName, checked]) => checked)
+      .map(([tagName]) => tagName)
+  }
+
+  reset() {
+    this.tagsFormGroup.reset(this.allTags.map(tag => {
+      return {
+        tag: false
+      }
+    }));
+    this.tagsChange.emit([]);
+  }
+
+  submit() {
+    const selectedTags = this.getSelectedTags(this.tagsFormGroup.value);
+    this.tagsChange.emit(selectedTags);
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this._subscriptions.unsubscribe();
   }
 }

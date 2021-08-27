@@ -11,14 +11,15 @@ export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
   @Input() isLoading: boolean | null = false;
   @Output() filtersChange = new EventEmitter<GamesOptions>();
   private _currentFilters$ = new BehaviorSubject<GamesOptions>({});
-  private _subscription!: Subscription;
+  private _subscriptions = new Subscription();
 
   constructor() { }
 
   ngOnInit(): void {
-    this._subscription = this._currentFilters$.subscribe(filters => {
+    const sub = this._currentFilters$.subscribe(filters => {
       this.filtersChange.emit(filters);
     });
+    this._subscriptions.add(sub);
   }
 
   setPrice(price: number | null) {
@@ -36,6 +37,6 @@ export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this._subscriptions.unsubscribe();
   }
 }

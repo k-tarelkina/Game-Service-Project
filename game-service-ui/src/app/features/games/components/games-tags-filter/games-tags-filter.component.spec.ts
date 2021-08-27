@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GamesTagsFilterComponent } from './games-tags-filter.component';
 import {GamesTagsService} from "../../../../core/services/games-tags-service/games-tags.service";
+import {FormBuilder} from "@angular/forms";
 
 describe('GamesTagsFilterComponent', () => {
   let component: GamesTagsFilterComponent;
@@ -15,7 +16,8 @@ describe('GamesTagsFilterComponent', () => {
         {
           provide: GamesTagsService,
           useValue: gamesTagsSpy
-        }
+        },
+        FormBuilder
       ]
     })
     .compileComponents();

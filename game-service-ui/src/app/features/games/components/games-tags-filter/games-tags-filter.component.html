@@ -1,8 +1,19 @@
-<div *ngIf="allTags$ | async; let tags" class="checkboxes-container">
-  <mat-checkbox #checkbox
-                *ngFor="let tag of tags"
-    (change)="handleTag(tag, checkbox.checked)"
-    [disabled]="disabled">
-    {{tag}}
-  </mat-checkbox>
-</div>
+<ng-container *ngIf="!isLoading">
+  <form [formGroup]="tagsFormGroup" (ngSumbit)="submit()">
+    <div class="checkboxes-container">
+      <mat-checkbox *ngFor="let tag of allTags"
+                    [formControlName]="tag">
+        {{tag}}
+      </mat-checkbox>
+    </div>
+    <button mat-button type="reset"
+      (click)="reset()">
+      Reset
+    </button>
+    <button mat-raised-button color="primary"
+            type="submit" [disabled]="!tagsFormGroup.valid"
+            (click)="submit()">
+      Apply
+    </button>
+  </form>
+</ng-container>
