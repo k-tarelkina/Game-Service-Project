@@ -1,24 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './guards/auth-guard/auth-guard.guard';
-
-/*
-routes:
-/auth
-  /sign_in
-  /sign_up
-/profile
-/games_catalogue
-/library
-/friends
-
-modules:
-auth
-profile
-users (friends)
-games
-library
- */
+import {PageNotFoundComponent} from './core/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -28,23 +11,31 @@ const routes: Routes = [
   },
   {
     path: 'games',
-    loadChildren: () => import('./features/games/games.module').then((m) => m.GamesModule),
+    loadChildren: () => import('./features/games/games.module')
+        .then((m) => m.GamesModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'auth',
-    loadChildren: () => import('./features/auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./features/auth/auth.module')
+        .then((m) => m.AuthModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'friends',
-    loadChildren: () => import('./features/friends/friends.module').then((m) => m.FriendsModule),
+    loadChildren: () => import('./features/friends/friends.module')
+        .then((m) => m.FriendsModule),
     canActivate: [AuthGuard],
   },
   {
     path: 'profile',
-    loadChildren: () => import('./features/profile/profile.module').then((m) => m.ProfileModule),
+    loadChildren: () => import('./features/profile/profile.module')
+        .then((m) => m.ProfileModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 

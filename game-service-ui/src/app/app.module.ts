@@ -10,12 +10,14 @@ import {SharedModule} from './shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {httpInterceptorProviders} from './interceptors/http_interceptors';
 import {AuthModule} from './features/auth/auth.module';
+import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
     HeaderComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
