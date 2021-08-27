@@ -8,14 +8,16 @@ const FRIEND_REQUEST_STATUS = [
     'EMPTY',
 ];
 
-const FriendsRecord = mongoose.model('Friends_Record', {
+const FriendRecord = mongoose.model('Friend_Record', {
     selfId: {
         type: ObjectId,
         required: true,
+        unique: false,
     },
     friendId: {
         type: ObjectId,
         required: true,
+        unique: false,
     },
     status: {
         type: String,
@@ -25,4 +27,4 @@ const FriendsRecord = mongoose.model('Friends_Record', {
     },
 });
 
-module.exports = {FriendsRecord};
+module.exports = {FriendRecord};

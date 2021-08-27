@@ -30,7 +30,8 @@ const router = express.Router();
 router.get('/', asyncWrapper(async (req, res) => {
     const friends = await getFriendsByParams(
         {...req.query, currentUserId: req.user._id});
-    const formattedFriends = await addFriendsInfoToRecords(req.user._id, friends);
+    const formattedFriends = await addFriendsInfoToRecords(
+        req.user._id, friends);
     res.status(200).json(formattedFriends);
 }));
 

@@ -1,6 +1,6 @@
 const {getUserById} = require('./users_getter_service');
 const {getUsersByUsername} = require('./users_getter_service');
-const {FriendsRecord} = require('../../models/friends_record_model');
+const {FriendRecord} = require('../../models/friends_record_model');
 
 const getFriendId = (currentUserId, friendRecord) => {
     const {friendId, selfId} = friendRecord;
@@ -36,13 +36,13 @@ const getFriendsByUsernameForUser = async (userId, username) => {
     const friendsRecords = [];
     for (let i = 0; i < usersWithThisUsername.length; i += 1) {
         const user = usersWithThisUsername[i];
-        const friendRecord = await FriendsRecord.findOne(
+        const friendRecord = await FriendRecord.findOne(
             {selfId: userId, friendId: user._id},
         );
         if (friendRecord) {
             friendsRecords.push(friendRecord);
         } else {
-            friendsRecords.push(new FriendsRecord({
+            friendsRecords.push(new FriendRecord({
                 selfId: userId,
                 friendId: user._id,
                 status: 'EMPTY',
@@ -53,7 +53,7 @@ const getFriendsByUsernameForUser = async (userId, username) => {
 };
 
 const getFriendsRequestsToUserByStatus = async (userId, status) => {
-    return FriendsRecord.find({
+    return FriendRecord.find({
         $and: [
             {friendId: userId},
             {status},
@@ -62,7 +62,7 @@ const getFriendsRequestsToUserByStatus = async (userId, status) => {
 };
 
 const getFriendsRequestsFromUserByStatus = async (userId, status) => {
-    return FriendsRecord.find({
+    return FriendRecord.find({
         $and: [
             {selfId: userId},
             {status},
@@ -71,7 +71,7 @@ const getFriendsRequestsFromUserByStatus = async (userId, status) => {
 };
 
 const getFriendsByUserId = async (id) => {
-    return FriendsRecord.find({
+    return FriendRecord.find({
         $or: [
             {
                 $and: [
@@ -92,25 +92,25 @@ const getFriendsByUserId = async (id) => {
 };
 
 const addRequestForFriend = async (selfId, friendId) => {
-    const recordFound = await FriendsRecord.findOne({selfId, friendId});
+    const recordFound = await FriendRecord.findOne({selfId, friendId});
     if (recordFound) {
-        await FriendsRecord.findOneAndUpdate({selfId, friendId},
+        await FriendRecord.findOneAndUpdate({selfId, friendId},
             {status: 'PENDING'});
     } else {
-        const record = new FriendsRecord({selfId, friendId});
+        const record = new FriendRecord({selfId, friendId});
         await record.save();
     }
 };
 
 const changeRequestStatus = async (selfId, friendId, status) => {
-    await FriendsRecord.findOneAndUpdate({
+    await FriendRecord.findOneAndUpdate({
         selfId: friendId,
         friendId: selfId,
     }, {status});
 };
 
 const deleteFriendForUser = async (selfId, friendId) => {
-    await FriendsRecord.findOneAndDelete({
+    await FriendRecord.findOneAndDelete({
         $or: [
             {selfId, friendId},
             {selfId: friendId, friendId: selfId},
@@ -118,7 +118,7 @@ const deleteFriendForUser = async (selfId, friendId) => {
 };
 
 const deleteUserFriends = async (id) => {
-    await FriendsRecord.deleteOne({
+    await FriendRecord.deleteOne({
         $or: [
             {selfId: id},
             {friendId: id},
@@ -126,7 +126,7 @@ const deleteUserFriends = async (id) => {
 };
 
 const isFriendForUser = async (userId, possibleFriend) => {
-    const record = await FriendsRecord
+    const record = await FriendRecord
         .findOne({selfId: userId}, {friendId: possibleFriend});
     return !!record;
 };

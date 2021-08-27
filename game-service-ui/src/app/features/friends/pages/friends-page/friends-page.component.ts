@@ -10,15 +10,16 @@ import {concatMap} from "rxjs/operators";
   styleUrls: ['./friends-page.component.scss']
 })
 export class FriendsPageComponent implements OnInit, OnDestroy {
-  private searchText$ = new BehaviorSubject<string>('');
+  private _searchText$ = new BehaviorSubject<string>('');
+  private _subscriptions = new Subscription();
+
   friends$!: Observable<FriendRecordModel[]>;
-  private subscription!: Subscription;
 
   constructor(private friendsService: FriendsService) { }
 
   ngOnInit(): void {
     this.friends$ = this.friendsService.friends$;
-    this.subscription = this.searchText$
+    const sub = this._searchText$
       .pipe(
         concatMap(text => {
           if (text.length) {
@@ -27,18 +28,19 @@ export class FriendsPageComponent implements OnInit, OnDestroy {
           return this.friendsService.getAllFriends();
         })
       ).subscribe();
+    this._subscriptions.add(sub);
   }
 
   search(searchText: string) {
-    this.searchText$.next(searchText);
+    this._searchText$.next(searchText);
   }
 
   getTitle(): string {
-    const searchText = this.searchText$.value;
+    const searchText = this._searchText$.value;
     return searchText.length ? `Search Friends: ${searchText}` : 'My friends';
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this._subscriptions.unsubscribe();
   }
 }

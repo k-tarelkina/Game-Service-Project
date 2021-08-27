@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FriendsService} from "../../../../core/services/friends-service/friends.service";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {FriendRecordModel} from "../../../../core/models/friend.record.model";
 
 @Component({
