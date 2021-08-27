@@ -1,11 +1,11 @@
 <main class="wrapper">
-  <ng-container *ngIf="user; else userNotFound">
-    <app-profile-settings-form [user]="user"></app-profile-settings-form>
+  <ng-container *ngIf="user$ | async; let user; else userNotFound">
+    <app-profile-settings-form [user]="user"
+                               (newUserData)="submitSettings($event)"></app-profile-settings-form>
   </ng-container>
   <ng-template #userNotFound>
     <p>
       Sorry, but we could not found user info. Try again later
     </p>
   </ng-template>
-  <button (click)="logUser()">Click</button>
 </main>
