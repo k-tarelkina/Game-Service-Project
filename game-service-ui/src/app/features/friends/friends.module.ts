@@ -1,14 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FriendsRoutingModule } from './friends-routing.module';
-import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
-import { FriendsContainerComponent } from './components/friends-container/friends-container.component';
-import { FriendCardComponent } from './components/friend-card/friend-card.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FriendsRoutingModule} from './friends-routing.module';
 import {
-  FriendsRequestsContainerComponent
+  FriendsPageComponent,
+} from './pages/friends-page/friends-page.component';
+import {
+  FriendsContainerComponent,
+} from './components/friends-container/friends-container.component';
+import {
+  FriendCardComponent,
+} from './components/friend-card/friend-card.component';
+import {
+  FriendsRequestsContainerComponent,
 } from './components/friends-requests-container/friends-requests-container.component';
-import {SharedModule} from "../../shared/shared.module";
-import { FriendRequestCardComponent } from './components/friend-request-card/friend-request-card.component';
+import {SharedModule} from '../../shared/shared.module';
+import {
+  FriendRequestCardComponent,
+} from './components/friend-request-card/friend-request-card.component';
 
 
 @NgModule({
@@ -17,12 +25,12 @@ import { FriendRequestCardComponent } from './components/friend-request-card/fri
     FriendsContainerComponent,
     FriendCardComponent,
     FriendsRequestsContainerComponent,
-    FriendRequestCardComponent
+    FriendRequestCardComponent,
   ],
   imports: [
     CommonModule,
     FriendsRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
 export class FriendsModule { }

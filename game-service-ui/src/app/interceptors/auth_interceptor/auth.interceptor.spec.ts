@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AuthInterceptor } from './auth.interceptor';
-import {HttpService} from "../../core/services/http-service/http.service";
-import {AuthService} from "../../core/services/auth-service/auth.service";
+import {AuthInterceptor} from './auth.interceptor';
+import {HttpService} from '../../core/services/http-service/http.service';
+import {AuthService} from '../../core/services/auth-service/auth.service';
 
 describe('AuthInterceptor', () => {
   let authServiceSpy: jasmine.SpyObj<AuthService>;
-  const authSpy = {}
+  const authSpy = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,9 +14,9 @@ describe('AuthInterceptor', () => {
         AuthInterceptor,
         {
           provide: AuthService,
-          useValue: authSpy
-        }
-      ]
+          useValue: authSpy,
+        },
+      ],
     });
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });

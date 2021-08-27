@@ -1,26 +1,26 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
-import {AuthService} from "./core/services/auth-service/auth.service";
+import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
+import {AuthService} from './core/services/auth-service/auth.service';
 
 describe('AppComponent', () => {
   let authServiceSpy: jasmine.SpyObj<AuthService>;
-  const authSpy = jasmine.createSpyObj('AuthService', ['login'])
+  const authSpy = jasmine.createSpyObj('AuthService', ['login']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
-        AppComponent
+        AppComponent,
       ],
       providers: [
         {
           provide: AuthService,
-          useValue: authSpy
-        }
-      ]
+          useValue: authSpy,
+        },
+      ],
     }).compileComponents();
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });

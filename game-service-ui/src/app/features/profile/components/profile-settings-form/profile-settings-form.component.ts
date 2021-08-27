@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserModel} from "../../../../core/models/user.model";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserModel} from '../../../../core/models/user.model';
 
 @Component({
   selector: 'app-profile-settings-form',
   templateUrl: './profile-settings-form.component.html',
-  styleUrls: ['./profile-settings-form.component.scss']
+  styleUrls: ['./profile-settings-form.component.scss'],
 })
 export class ProfileSettingsFormComponent implements OnInit {
   @Input() user!: UserModel;
@@ -18,7 +18,7 @@ export class ProfileSettingsFormComponent implements OnInit {
     this.profileSettingsGroup = this.fb.group({
       username: this.fb.control(this.user && this.user.username || '', [Validators.required]),
       email: this.fb.control(this.user && this.user.email|| '', [Validators.required]),
-      age: this.fb.control(this.user && this.user.age|| null)
+      age: this.fb.control(this.user && this.user.age|| null),
     });
   }
 

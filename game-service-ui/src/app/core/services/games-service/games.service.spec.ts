@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { GamesService } from './games.service';
-import {HttpService} from "../http-service/http.service";
-import {GameModel} from "../../models/game.model";
-import {of} from "rxjs";
+import {GamesService} from './games.service';
+import {HttpService} from '../http-service/http.service';
+import {GameModel} from '../../models/game.model';
+import {of} from 'rxjs';
 
 describe('GamesService', () => {
   let service: GamesService;
@@ -16,9 +16,9 @@ describe('GamesService', () => {
       providers: [
         {
           provide: HttpService,
-          useValue: httpSpy
-        }
-      ]
+          useValue: httpSpy,
+        },
+      ],
     });
     service = TestBed.inject(GamesService);
     httpServiceSpy = TestBed.inject(HttpService) as jasmine.SpyObj<HttpService<GameModel>>;

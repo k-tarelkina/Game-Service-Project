@@ -1,24 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SettingsPageComponent } from './settings-page.component';
-import {AuthService} from "../../../../core/services/auth-service/auth.service";
+import {SettingsPageComponent} from './settings-page.component';
+import {AuthService} from '../../../../core/services/auth-service/auth.service';
 
 describe('SettingsPageComponent', () => {
   let component: SettingsPageComponent;
   let fixture: ComponentFixture<SettingsPageComponent>;
-  let authSpy = jasmine.createSpyObj('AuthService', ['updateUser'], ['user$']);
+  const authSpy = jasmine.createSpyObj('AuthService', ['updateUser'], ['user$']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsPageComponent ],
+      declarations: [SettingsPageComponent],
       providers: [
         {
           provide: AuthService,
-          useValue: authSpy
-        }
-      ]
+          useValue: authSpy,
+        },
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

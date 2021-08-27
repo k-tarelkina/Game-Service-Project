@@ -1,13 +1,13 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {GameModel} from "../../../../core/models/game.model";
-import {GamesService} from "../../../../core/services/games-service/games.service";
-import {environment} from "../../../../../environments/environment";
-import {Subscription} from "rxjs";
+import {GameModel} from '../../../../core/models/game.model';
+import {GamesService} from '../../../../core/services/games-service/games.service';
+import {environment} from '../../../../../environments/environment';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-game-card',
   templateUrl: './game-card.component.html',
-  styleUrls: ['./game-card.component.scss']
+  styleUrls: ['./game-card.component.scss'],
 })
 export class GameCardComponent implements OnDestroy {
   private _subscriptions = new Subscription();
@@ -33,7 +33,7 @@ export class GameCardComponent implements OnDestroy {
 
   copyToClipboard() {
     navigator.clipboard.writeText(this.formShareText())
-      .then(() => alert(`${this.game.name} info was copied! Now you can share it in social media`))
+        .then(() => alert(`${this.game.name} info was copied! Now you can share it in social media`));
   }
 
   download() {

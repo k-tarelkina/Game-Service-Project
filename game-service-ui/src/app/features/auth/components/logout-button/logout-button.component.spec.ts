@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LogoutButtonComponent } from './logout-button.component';
-import {AuthService} from "../../../../core/services/auth-service/auth.service";
+import {LogoutButtonComponent} from './logout-button.component';
+import {AuthService} from '../../../../core/services/auth-service/auth.service';
 
 describe('LogoutButtonComponent', () => {
   let component: LogoutButtonComponent;
@@ -10,15 +10,15 @@ describe('LogoutButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogoutButtonComponent ],
+      declarations: [LogoutButtonComponent],
       providers: [
         {
           provide: AuthService,
-          useValue: authSpy
-        }
-      ]
+          useValue: authSpy,
+        },
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProfileSettingsFormComponent } from './profile-settings-form.component';
-import {FormBuilder} from "@angular/forms";
+import {ProfileSettingsFormComponent} from './profile-settings-form.component';
+import {FormBuilder} from '@angular/forms';
 
 describe('ProfileSettingsFormComponent', () => {
   let component: ProfileSettingsFormComponent;
@@ -9,12 +9,12 @@ describe('ProfileSettingsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileSettingsFormComponent ],
+      declarations: [ProfileSettingsFormComponent],
       providers: [
-        FormBuilder
-      ]
+        FormBuilder,
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

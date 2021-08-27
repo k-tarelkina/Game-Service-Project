@@ -1,30 +1,30 @@
-import { ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { FriendCardComponent } from './friend-card.component';
-import {of} from "rxjs";
-import {FriendsService} from "../../../../core/services/friends-service/friends.service";
+import {ComponentFixture, TestBed, ComponentFixtureAutoDetect} from '@angular/core/testing';
+import {FriendCardComponent} from './friend-card.component';
+import {of} from 'rxjs';
+import {FriendsService} from '../../../../core/services/friends-service/friends.service';
 
 describe('FriendCardComponent', () => {
   let component: FriendCardComponent;
   let fixture: ComponentFixture<FriendCardComponent>;
-  let friendsSpy = jasmine.createSpyObj('FriendsService',
-    ['addFriendRequestFromUser', 'deleteFriend']);
+  const friendsSpy = jasmine.createSpyObj('FriendsService',
+      ['addFriendRequestFromUser', 'deleteFriend']);
   const actionsCSSClass = '.actions';
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FriendCardComponent ],
+      declarations: [FriendCardComponent],
       providers: [
         {
           provide: FriendsService,
-          useValue: friendsSpy
+          useValue: friendsSpy,
         },
         {
           provide: ComponentFixtureAutoDetect,
-          useValue: true
-        }
-      ]
+          useValue: true,
+        },
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {
@@ -41,55 +41,55 @@ describe('FriendCardComponent', () => {
     component.friendRecord = {
       friend: {
         _id: '_id',
-        username: 'username'
+        username: 'username',
       },
-      status: 'PENDING'
+      status: 'PENDING',
     };
     fixture.detectChanges();
     const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLParagraphElement);
     expect(element.textContent.trim()).toEqual('PENDING');
-  })
+  });
 
   it('should render "Remove friend" button if the request status is ACCEPTED', () => {
     component.friendRecord = {
       friend: {
         _id: '_id',
-        username: 'username'
+        username: 'username',
       },
-      status: 'ACCEPTED'
+      status: 'ACCEPTED',
     };
     fixture.detectChanges();
     const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLButtonElement);
     expect(element.textContent.trim()).toEqual('Remove friend');
-  })
+  });
 
   it('should render "Add friend" button if the request status is EMPTY', () => {
     component.friendRecord = {
       friend: {
         _id: '_id',
-        username: 'username'
+        username: 'username',
       },
-      status: 'EMPTY'
+      status: 'EMPTY',
     };
     fixture.detectChanges();
     const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLButtonElement);
     expect(element.textContent.trim()).toEqual('Add friend');
-  })
+  });
 
   it('should render "Add friend" button if the request status is REJECTED', () => {
     component.friendRecord = {
       friend: {
         _id: '_id',
-        username: 'username'
+        username: 'username',
       },
-      status: 'REJECTED'
+      status: 'REJECTED',
     };
     fixture.detectChanges();
     const element = fixture.nativeElement.querySelector(actionsCSSClass);
     expect(element).toBeInstanceOf(HTMLButtonElement);
     expect(element.textContent.trim()).toEqual('Add friend');
-  })
+  });
 });

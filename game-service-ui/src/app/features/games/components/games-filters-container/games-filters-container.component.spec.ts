@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GamesFiltersContainerComponent } from './games-filters-container.component';
+import {GamesFiltersContainerComponent} from './games-filters-container.component';
 
 describe('GamesFiltersContainerComponent', () => {
   let component: GamesFiltersContainerComponent;
@@ -8,9 +8,9 @@ describe('GamesFiltersContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamesFiltersContainerComponent ]
+      declarations: [GamesFiltersContainerComponent],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

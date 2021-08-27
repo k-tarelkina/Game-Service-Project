@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {GamesTagsService} from "../../../../core/services/games-tags-service/games-tags.service";
-import {Subscription} from "rxjs";
-import {FormBuilder} from "@angular/forms";
+import {GamesTagsService} from '../../../../core/services/games-tags-service/games-tags.service';
+import {Subscription} from 'rxjs';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-games-tags-filter',
   templateUrl: './games-tags-filter.component.html',
-  styleUrls: ['./games-tags-filter.component.scss']
+  styleUrls: ['./games-tags-filter.component.scss'],
 })
 export class GamesTagsFilterComponent implements OnInit, OnDestroy {
   private _subscriptions = new Subscription();
@@ -22,27 +22,27 @@ export class GamesTagsFilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const sub = this.tagsService.getAllTags$()
-      .subscribe((tags) => {
-        this.allTags = tags;
-        tags.forEach(tag => {
-          this.tagsFormGroup.addControl(tag, this.fb.control(false));
-        })
-        this.isLoading = false;
-      });
+        .subscribe((tags) => {
+          this.allTags = tags;
+          tags.forEach((tag) => {
+            this.tagsFormGroup.addControl(tag, this.fb.control(false));
+          });
+          this.isLoading = false;
+        });
     this._subscriptions.add(sub);
   }
 
   private getSelectedTags(controls: Object) {
     return Object.entries(controls)
-      .filter(([tagName, checked]) => checked)
-      .map(([tagName]) => tagName)
+        .filter(([tagName, checked]) => checked)
+        .map(([tagName]) => tagName);
   }
 
   reset() {
-    this.tagsFormGroup.reset(this.allTags.map(tag => {
+    this.tagsFormGroup.reset(this.allTags.map((tag) => {
       return {
-        tag: false
-      }
+        tag: false,
+      };
     }));
     this.tagsChange.emit([]);
   }

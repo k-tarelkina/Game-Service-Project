@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {AuthGuard} from "./guards/auth-guard/auth-guard.guard";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from './guards/auth-guard/auth-guard.guard';
 
 /*
 routes:
@@ -24,32 +24,32 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'games',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'games',
-    loadChildren:  () => import('./features/games/games.module').then(m => m.GamesModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./features/games/games.module').then((m) => m.GamesModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth',
-    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./features/auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'friends',
-    loadChildren: () => import('./features/friends/friends.module').then(m => m.FriendsModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./features/friends/friends.module').then((m) => m.FriendsModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',
-    loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./features/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

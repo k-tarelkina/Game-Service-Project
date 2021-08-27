@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GamesCataloguePageComponent } from './games-catalogue-page.component';
-import {GamesService} from "../../../../core/services/games-service/games.service";
+import {GamesCataloguePageComponent} from './games-catalogue-page.component';
+import {GamesService} from '../../../../core/services/games-service/games.service';
 
 describe('GamesCataloguePageComponent', () => {
   let component: GamesCataloguePageComponent;
@@ -10,15 +10,15 @@ describe('GamesCataloguePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamesCataloguePageComponent ],
+      declarations: [GamesCataloguePageComponent],
       providers: [
         {
           provide: GamesService,
-          useValue: gamesSpy
-        }
-      ]
+          useValue: gamesSpy,
+        },
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

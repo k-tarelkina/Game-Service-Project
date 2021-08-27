@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GamesPriceFilterComponent } from './games-price-filter.component';
+import {GamesPriceFilterComponent} from './games-price-filter.component';
 
 describe('GamesPriceFilterComponent', () => {
   let component: GamesPriceFilterComponent;
@@ -8,9 +8,9 @@ describe('GamesPriceFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamesPriceFilterComponent ]
+      declarations: [GamesPriceFilterComponent],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

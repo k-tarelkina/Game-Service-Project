@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {BehaviorSubject, Subscription} from "rxjs";
-import {GamesOptions} from "../../../../core/services/games-service/games.service";
+import {BehaviorSubject, Subscription} from 'rxjs';
+import {GamesOptions} from '../../../../core/services/games-service/games.service';
 
 @Component({
   selector: 'app-games-filters-container',
   templateUrl: './games-filters-container.component.html',
-  styleUrls: ['./games-filters-container.component.scss']
+  styleUrls: ['./games-filters-container.component.scss'],
 })
 export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
   @Input() isLoading: boolean | null = false;
@@ -16,7 +16,7 @@ export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    const sub = this._currentFilters$.subscribe(filters => {
+    const sub = this._currentFilters$.subscribe((filters) => {
       this.filtersChange.emit(filters);
     });
     this._subscriptions.add(sub);

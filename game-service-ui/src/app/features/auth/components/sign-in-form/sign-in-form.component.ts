@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {AuthService} from "../../../../core/services/auth-service/auth.service";
+import {AuthService} from '../../../../core/services/auth-service/auth.service';
 
 interface ErrorObject {
   message: string
@@ -9,12 +9,12 @@ interface ErrorObject {
 @Component({
   selector: 'app-sign-in-form',
   templateUrl: './sign-in-form.component.html',
-  styleUrls: ['./sign-in-form.component.scss']
+  styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent {
   loginGroup = this.fb.group({
     email: this.fb.control('', Validators.required),
-    password: this.fb.control('', Validators.required)
+    password: this.fb.control('', Validators.required),
   });
   errorMessage: string | null = null;
 
@@ -28,11 +28,11 @@ export class SignInFormComponent {
   onSubmit() {
     const {email, password} = this.loginGroup.value;
     this.authService.login(email, password)
-      .subscribe({
-        next: () => {
-          this.errorMessage = null;
-        },
-        error: ({error}) => this.handleError(error)
-      });
+        .subscribe({
+          next: () => {
+            this.errorMessage = null;
+          },
+          error: ({error}) => this.handleError(error),
+        });
   }
 }

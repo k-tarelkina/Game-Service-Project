@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import {HttpService} from "../http-service/http.service";
-import {tap} from "rxjs/operators";
-import {Router} from "@angular/router";
-import {BehaviorSubject, Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {HttpService} from '../http-service/http.service';
+import {tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {UserModel} from '../../models/user.model';
-import {ResponseBody} from "../../models/response.body";
+import {ResponseBody} from '../../models/response.body';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private _URL = '/api/auth';
@@ -49,12 +49,12 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.httpService.post(this._LOGIN_URL, {email, password})
-      .pipe(
-        tap((user: Partial<UserModel>) => {
-          this.setUserToStorage(user);
-          this._userSubject$.next(user as UserModel);
-          this.router.navigate(['']);
-      }));
+        .pipe(
+            tap((user: Partial<UserModel>) => {
+              this.setUserToStorage(user);
+              this._userSubject$.next(user as UserModel);
+              this.router.navigate(['']);
+            }));
   }
 
   logout() {
@@ -65,11 +65,11 @@ export class AuthService {
 
   updateUser(data: Partial<UserModel>): Observable<ResponseBody> {
     return this.httpService.patch(this._CURRENT_USER_URL, data)
-      .pipe(
-        tap(() => {
-          const newUser = {...this.userValue, ...data};
-          this.setUserToStorage(newUser);
-          this._userSubject$.next(newUser as UserModel);
-        }));
+        .pipe(
+            tap(() => {
+              const newUser = {...this.userValue, ...data};
+              this.setUserToStorage(newUser);
+              this._userSubject$.next(newUser as UserModel);
+            }));
   }
 }

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpService} from "../http-service/http.service";
-import {GameModel} from "../../models/game.model";
-import {BehaviorSubject, Observable, of} from "rxjs";
-import {catchError, concatMap, tap} from "rxjs/operators";
-import {MyGamesService} from "../my-games-service/my-games.service";
+import {Injectable} from '@angular/core';
+import {HttpService} from '../http-service/http.service';
+import {GameModel} from '../../models/game.model';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {catchError, concatMap, tap} from 'rxjs/operators';
+import {MyGamesService} from '../my-games-service/my-games.service';
 
 export interface GamesOptions {
   name?: string,
@@ -12,7 +12,7 @@ export interface GamesOptions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GamesService {
   private _GAMES_URL = '/api/games';
@@ -26,15 +26,15 @@ export class GamesService {
 
   private preloadGames() {
     this.getAllGames$()
-      .pipe(
-        catchError(err => {
-          console.error(err);
-          return of([]);
-        })
-      )
-      .subscribe((games) => {
-        this._gamesSubject$.next(games)
-      });
+        .pipe(
+            catchError((err) => {
+              console.error(err);
+              return of([]);
+            }),
+        )
+        .subscribe((games) => {
+          this._gamesSubject$.next(games);
+        });
   }
 
   get games$(): Observable<GameModel[]> {
@@ -44,10 +44,10 @@ export class GamesService {
   applyOptions$(options: GamesOptions): Observable<GameModel[]> {
     this._options = options;
     return this.getAllGames$()
-      .pipe(
-        tap(games => {
-          this._gamesSubject$.next(games);
-        }));
+        .pipe(
+            tap((games) => {
+              this._gamesSubject$.next(games);
+            }));
   }
 
   getAllGames$(): Observable<GameModel[]> {
@@ -60,11 +60,11 @@ export class GamesService {
 
   addGameToLibrary$(gameId: string): Observable<GameModel[]> {
     return this.userGamesService.addGameToLibrary$(gameId)
-      .pipe(
-        concatMap(() => this.getAllGames$()),
-        tap(games => {
-          this._gamesSubject$.next(games);
-        })
-      );
+        .pipe(
+            concatMap(() => this.getAllGames$()),
+            tap((games) => {
+              this._gamesSubject$.next(games);
+            }),
+        );
   }
 }

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import {Observable, of} from "rxjs";
-import {HttpService} from "../http-service/http.service";
+import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {HttpService} from '../http-service/http.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GamesTagsService {
   private _URL = '/api/games/tags';

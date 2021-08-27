@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GamesTagsFilterComponent } from './games-tags-filter.component';
-import {GamesTagsService} from "../../../../core/services/games-tags-service/games-tags.service";
-import {FormBuilder} from "@angular/forms";
+import {GamesTagsFilterComponent} from './games-tags-filter.component';
+import {GamesTagsService} from '../../../../core/services/games-tags-service/games-tags.service';
+import {FormBuilder} from '@angular/forms';
 
 describe('GamesTagsFilterComponent', () => {
   let component: GamesTagsFilterComponent;
@@ -11,16 +11,16 @@ describe('GamesTagsFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GamesTagsFilterComponent ],
+      declarations: [GamesTagsFilterComponent],
       providers: [
         {
           provide: GamesTagsService,
-          useValue: gamesTagsSpy
+          useValue: gamesTagsSpy,
         },
-        FormBuilder
-      ]
+        FormBuilder,
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {

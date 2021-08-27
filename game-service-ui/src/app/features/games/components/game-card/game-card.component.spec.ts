@@ -1,24 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GameCardComponent } from './game-card.component';
-import {GamesService} from "../../../../core/services/games-service/games.service";
+import {GameCardComponent} from './game-card.component';
+import {GamesService} from '../../../../core/services/games-service/games.service';
 
 describe('GameCardComponent', () => {
   let component: GameCardComponent;
   let fixture: ComponentFixture<GameCardComponent>;
-  const gamesSpy = jasmine.createSpyObj('GamesService', ['addGameToLibrary$'])
+  const gamesSpy = jasmine.createSpyObj('GamesService', ['addGameToLibrary$']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameCardComponent ],
+      declarations: [GameCardComponent],
       providers: [
         {
           provide: GamesService,
-          useValue: gamesSpy
-        }
-      ]
+          useValue: gamesSpy,
+        },
+      ],
     })
-    .compileComponents();
+        .compileComponents();
   });
 
   beforeEach(() => {
