@@ -10,6 +10,7 @@ import {FormBuilder} from "@angular/forms";
 })
 export class GamesTagsFilterComponent implements OnInit, OnDestroy {
   private _subscriptions = new Subscription();
+
   @Input() disabled: boolean = false;
   @Output() tagsChange = new EventEmitter<string[]>();
   allTags: string[] = [];
