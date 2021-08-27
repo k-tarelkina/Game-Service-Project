@@ -1,31 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {AuthService} from "../../../../core/services/auth-service/auth.service";
-import {catchError, tap} from "rxjs/operators";
-import {of} from "rxjs";
-import {Router} from "@angular/router";
+
+interface ErrorObject {
+  message: string
+}
 
 @Component({
   selector: 'app-sign-in-form',
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss']
 })
-export class SignInFormComponent implements OnInit {
+export class SignInFormComponent {
   loginGroup = this.fb.group({
     email: this.fb.control('', Validators.required),
     password: this.fb.control('', Validators.required)
   });
-
-  error: string | null = null;
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService) { }
 
-  ngOnInit(): void {
-  }
-
-  handleError(error: {error: { message: string }}) {
-    this.error = error.error.message;
+  private handleError(error: ErrorObject) {
+    this.errorMessage = error.message;
   }
 
   onSubmit() {
@@ -33,10 +30,9 @@ export class SignInFormComponent implements OnInit {
     this.authService.login(email, password)
       .subscribe({
         next: () => {
-          this.error = null;
+          this.errorMessage = null;
         },
-        error: (e) => this.handleError(e)
+        error: ({error}) => this.handleError(error)
       });
   }
-
 }
