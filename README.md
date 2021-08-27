@@ -1,9 +1,9 @@
 # Games Service Project
 
-##Summary
+## Summary
 An application represents a simple games service, where users can sign in, search for and download games and add or remove friends.
 
-##Overview
+## Overview
 Both front-end and back-end parts are provided. Back-end is written using Express.js framework (NodeJS) and MongoDB as a database.
 Font-end is a single-page application (SPA) written using Angular.
  
@@ -14,7 +14,7 @@ The application provides different features, such as:
 - Settings feature, which enables to change profile info
 - JWT authentication.
 
-##Usage
+## Usage
 You can watch demo [here](https://game-service-app.herokuapp.com).
 
 As there is no registration provided yet, you can check how the app works by logging in using one of the following credentials:
