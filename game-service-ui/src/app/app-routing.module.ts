@@ -43,8 +43,8 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    redirectTo: 'games',
-    pathMatch: 'full'
+    loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard]
   },
 ];
 

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {FriendModel} from "../../models/friend.model";
-import {map} from "rxjs/operators";
 import {HttpService} from "../http-service/http.service";
 import {UserModel} from "../../models/user.model";
 

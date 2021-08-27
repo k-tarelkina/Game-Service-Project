@@ -1,0 +1,29 @@
+<mat-card class="profile-form-container">
+  <mat-card-header>
+    <h1>Profile</h1>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="profileSettingsGroup" (ngSubmit)="submit()">
+      <mat-form-field class="input-container">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username">
+      </mat-form-field>
+      <mat-form-field class="input-container">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field class="input-container">
+        <mat-label>Age</mat-label>
+        <input matInput type="number" formControlName="age">
+      </mat-form-field>
+      <div class="buttons-container">
+        <button mat-button
+                type="button"
+                (click)="reset()">Reset</button>
+        <button mat-raised-button color="primary"
+                type="submit"
+                [disabled]="!profileSettingsGroup.valid">Save</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

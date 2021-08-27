@@ -3,7 +3,7 @@ import {HttpService} from "../http-service/http.service";
 import {GameModel} from "../../models/game.model";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {catchError, concatMap, tap} from "rxjs/operators";
-import {UserGamesService} from "../user-games-service/user-games.service";
+import {MyGamesService} from "../my-games-service/my-games.service";
 
 export interface GamesOptions {
   name?: string,
@@ -20,7 +20,7 @@ export class GamesService {
   private _options!: Object;
 
   constructor(private httpService: HttpService<GameModel>,
-              private userGamesService: UserGamesService) {
+              private userGamesService: MyGamesService) {
     this.preloadGames();
   }
 

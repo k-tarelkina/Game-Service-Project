@@ -16,10 +16,10 @@ export class GamesCataloguePageComponent implements OnDestroy {
   constructor(private gamesService: GamesService) {}
 
   applyOptionsToGames() {
-    this.subscription.add(
-      this.gamesService
+    const sub =  this.gamesService
       .applyOptions$({name: this.searchText, ...this.filters})
-        .subscribe());
+      .subscribe();
+    this.subscription.add(sub);
   }
 
   search(text: string): void {

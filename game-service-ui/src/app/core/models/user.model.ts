@@ -4,5 +4,6 @@ export interface UserModel {
   username: string,
   password: string,
   token?: string,
+  age?: number,
   isFriendWithCurrentUser?: boolean,
 }
