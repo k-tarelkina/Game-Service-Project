@@ -9,6 +9,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 import {SharedModule} from "./shared/shared.module";
 import {RouterModule} from "@angular/router";
 import {httpInterceptorProviders} from "./interceptors/http_interceptors";
+import {AuthModule} from "./features/auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -16,14 +17,15 @@ import {httpInterceptorProviders} from "./interceptors/http_interceptors";
     MainMenuComponent,
     HeaderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    SharedModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        SharedModule,
+        AuthModule
+    ],
   providers: [
     httpInterceptorProviders
   ],

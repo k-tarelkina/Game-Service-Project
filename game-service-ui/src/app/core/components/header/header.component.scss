@@ -1,3 +1,9 @@
 header {
   margin-bottom: 70px;
 }
+
+mat-toolbar {
+  display: flex;
+  padding: 50px;
+  justify-content: space-between;
+}
