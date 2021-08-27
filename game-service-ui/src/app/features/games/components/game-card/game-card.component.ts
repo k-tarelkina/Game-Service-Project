@@ -1,6 +1,7 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {GameModel} from '../../../../core/models/game.model';
-import {GamesService} from '../../../../core/services/games-service/games.service';
+import {GamesService} from
+  '../../../../core/services/games-service/games.service';
 import {environment} from '../../../../../environments/environment';
 import {Subscription} from 'rxjs';
 
