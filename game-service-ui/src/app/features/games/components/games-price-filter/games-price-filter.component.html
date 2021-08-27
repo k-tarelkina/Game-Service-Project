@@ -5,6 +5,11 @@
   [min]="0"
   [step]="1"
   [disabled]="disabled"
-  aria-label="Games price slider"
-  (mouseup)="setPrice(priceSlider.value)">
+  aria-label="Games price slider">
 </mat-slider>
+<button mat-button (click)="resetPrice(); priceSlider.value = 0">
+  Reset
+</button>
+<button mat-raised-button color="primary" (click)="setPrice(priceSlider.value)">
+  Submit
+</button>

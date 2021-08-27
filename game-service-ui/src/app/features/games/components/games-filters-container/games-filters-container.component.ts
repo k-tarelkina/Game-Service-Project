@@ -21,8 +21,14 @@ export class GamesFiltersContainerComponent implements OnInit, OnDestroy {
     });
   }
 
-  setPrice(price: number) {
-    this._currentFilters$.next({...this._currentFilters$.value, maxPrice: price});
+  setPrice(price: number | null) {
+    if (price === null) {
+      const withoutMaxPrice = {...this._currentFilters$.value};
+      delete withoutMaxPrice.maxPrice;
+      this._currentFilters$.next(withoutMaxPrice);
+    } else {
+      this._currentFilters$.next({...this._currentFilters$.value, maxPrice: price});
+    }
   }
 
   setTags(tags: string[]) {

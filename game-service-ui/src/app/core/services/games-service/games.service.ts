@@ -8,7 +8,7 @@ import {MyGamesService} from "../my-games-service/my-games.service";
 export interface GamesOptions {
   name?: string,
   tags?: string[],
-  maxPrice?: number
+  maxPrice?: number;
 }
 
 @Injectable({
@@ -42,7 +42,7 @@ export class GamesService {
   }
 
   applyOptions$(options: GamesOptions): Observable<GameModel[]> {
-    this._options = options
+    this._options = options;
     return this.getAllGames$()
       .pipe(
         tap(games => {

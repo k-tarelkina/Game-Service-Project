@@ -4,6 +4,7 @@ $width: 300px;
 
 .card {
   width: $width;
+  height: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,4 +17,14 @@ $width: 300px;
 
 .mat-card > .mat-card-actions:last-child {
   margin-bottom: 0;
+}
+
+.description-maximized {
+  min-height: fit-content;
+}
+
+.description-minimized {
+  height: 300px;
+  max-height: 300px;
+  overflow: hidden;
 }

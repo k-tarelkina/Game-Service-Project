@@ -5,16 +5,15 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   templateUrl: './games-price-filter.component.html',
   styleUrls: ['./games-price-filter.component.scss']
 })
-export class GamesPriceFilterComponent implements OnInit {
+export class GamesPriceFilterComponent {
   @Input() disabled: boolean = false;
-  @Output() priceChange = new EventEmitter<number>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Output() priceChange = new EventEmitter<number | null>();
 
   setPrice(price: number) {
     this.priceChange.emit(price);
+  }
+
+  resetPrice() {
+    this.priceChange.emit(null);
   }
 }
