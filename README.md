@@ -18,7 +18,7 @@ The application provides different features, such as:
 You can watch demo [here](https://game-service-app.herokuapp.com).
 
 As there is no registration provided yet, you can check how the app works by logging in using one of the following credentials:
-- email: "username@example.com",
+- email: "username@email.com",
 username: "username",
 password: "1111"
 
