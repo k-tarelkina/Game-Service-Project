@@ -1,6 +1,24 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import {UserModel} from '../../../../core/models/user.model';
+
+export function createDisableFloatValidator(): ValidatorFn {
+  return (control: AbstractControl) : ValidationErrors | null => {
+    const {value} = control;
+    if (!value) {
+      return null;
+    }
+    return Number.isInteger(value) ?
+      null : {message: 'Number should be an integer'};
+  };
+}
 
 @Component({
   selector: 'app-profile-settings-form',
@@ -16,9 +34,13 @@ export class ProfileSettingsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileSettingsGroup = this.fb.group({
-      username: this.fb.control(this.user && this.user.username || '', [Validators.required]),
-      email: this.fb.control(this.user && this.user.email|| '', [Validators.required]),
-      age: this.fb.control(this.user && this.user.age|| null),
+      username: this.fb.control(this.user && this.user.username || '',
+          [Validators.required]),
+      email: this.fb.control(this.user && this.user.email|| '',
+          [Validators.required, Validators.email]),
+      age: this.fb.control(this.user && this.user.age|| null,
+          [Validators.min(1), Validators.max(150),
+            createDisableFloatValidator()]),
     });
   }
 
