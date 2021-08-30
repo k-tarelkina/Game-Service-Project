@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../../core/services/auth-service/auth.service';
 
 interface ErrorObject {
@@ -12,14 +12,16 @@ interface ErrorObject {
   styleUrls: ['./sign-in-form.component.scss'],
 })
 export class SignInFormComponent {
-  loginGroup = this.fb.group({
-    email: this.fb.control('', Validators.required),
-    password: this.fb.control('', Validators.required),
-  });
+  loginGroup!: FormGroup;
   errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+    this.loginGroup = this.fb.group({
+      email: this.fb.control('', Validators.required),
+      password: this.fb.control('', Validators.required),
+    });
+  }
 
   private handleError(error: ErrorObject) {
     this.errorMessage = error.message;

@@ -1,5 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {SignInFormComponent} from './sign-in-form.component';
 import {FormBuilder} from '@angular/forms';
 import {AuthService} from '../../../../core/services/auth-service/auth.service';
@@ -7,7 +6,6 @@ import {AuthService} from '../../../../core/services/auth-service/auth.service';
 describe('SignInFormComponent', () => {
   let component: SignInFormComponent;
   let fixture: ComponentFixture<SignInFormComponent>;
-  let authServiceSpy: jasmine.SpyObj<AuthService>;
   const authSpy = jasmine.createSpyObj('AuthService', ['login']);
 
   beforeEach(async () => {
@@ -20,9 +18,7 @@ describe('SignInFormComponent', () => {
           useValue: authSpy,
         },
       ],
-    })
-        .compileComponents();
-    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -33,5 +29,23 @@ describe('SignInFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have initial values empty', () => {
+    const initValues = {
+      email: '',
+      password: '',
+    };
+    expect(component.loginGroup.value).toEqual(initValues);
+  });
+
+  it('should correctly bind email form control to the form input', () => {
+    const email = 'email@email.com';
+    const emailInput: HTMLInputElement = fixture.nativeElement
+        .querySelector('#sign-in-email');
+    emailInput.value = email;
+    emailInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(component.loginGroup.value.email).toEqual(email);
   });
 });

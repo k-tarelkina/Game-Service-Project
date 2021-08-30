@@ -30,4 +30,10 @@ describe('LogoutButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call log out method from AuthService on click', () => {
+    const button = fixture.nativeElement.querySelector('#logout-button');
+    button.click();
+    expect(authSpy.logout).toHaveBeenCalled();
+  });
 });
