@@ -20,7 +20,14 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   submitSettings(newUserData: Partial<UserModel>): void {
     const sub = this.authService.updateUser(newUserData)
-        .subscribe(() => alert('Your info was successfully updated'));
+        .subscribe({
+          error: () => {
+            alert('Oops... Your data was not updated. This username or email are already taken.');
+          },
+          next: () => {
+            alert('Your info was successfully updated');
+          },
+        });
     this._subscriptions.add(sub);
   }
 
