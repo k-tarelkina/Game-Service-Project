@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from '../http-service/http.service';
 import {FriendRecordModel} from '../../models/friend.record.model';
-import {BehaviorSubject, Observable, of, pipe} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {ResponseBody} from '../../models/response.body';
 import {catchError, tap} from 'rxjs/operators';
 
@@ -56,15 +56,21 @@ export class FriendsService {
   }
 
   getFriendsRequestsToUser(): Observable<FriendRecordModel[]> {
+    const options = {params: {status: 'PENDING'}};
     return this.httpService
-        .get(this._FRIENDS_URL,
-            {params: {status: 'PENDING'}}) as Observable<FriendRecordModel[]>;
+        .get(this._FRIENDS_URL, options) as Observable<FriendRecordModel[]>;
   }
 
   getFriendsRequestsFromUser(): Observable<FriendRecordModel[]> {
+    const options = {
+      params:
+        {
+          status: 'PENDING',
+          userAs: 'self',
+        },
+    };
     return this.httpService
-        .get(this._FRIENDS_URL,
-            {params: {status: 'PENDING', userAs: 'self'}}) as Observable<FriendRecordModel[]>;
+        .get(this._FRIENDS_URL, options) as Observable<FriendRecordModel[]>;
   }
 
   getAllFriends(): Observable<FriendRecordModel[]> {
