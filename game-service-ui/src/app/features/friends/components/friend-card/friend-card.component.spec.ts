@@ -7,12 +7,15 @@ import {FriendCardComponent} from './friend-card.component';
 import {
   FriendsService,
 } from '../../../../core/services/friends-service/friends.service';
+import {of} from 'rxjs';
 
 describe('FriendCardComponent', () => {
   let component: FriendCardComponent;
   let fixture: ComponentFixture<FriendCardComponent>;
   const friendsSpy = jasmine.createSpyObj('FriendsService',
       ['addFriendRequestFromUser', 'deleteFriend']);
+  friendsSpy.addFriendRequestFromUser.and.returnValue(of());
+  friendsSpy.deleteFriend.and.returnValue(of());
   const actionsCSSClass = '.actions';
 
   beforeEach(async () => {

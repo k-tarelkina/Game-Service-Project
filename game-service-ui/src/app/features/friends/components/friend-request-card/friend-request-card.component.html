@@ -1,7 +1,11 @@
 <mat-card class="friend-request-card" *ngIf="friendRequest && friendRequest.friend">
-  <p>{{friendRequest.friend.username}}</p>
+  <p id="friend-username">{{friendRequest.friend.username}}</p>
   <div class="buttons-container">
-    <button mat-button color="warn" (click)="rejectFriend()">Reject</button>
-    <button mat-raised-button color="primary" (click)="acceptFriend()">Accept</button>
+    <button mat-button color="warn"
+            id="rejectButton"
+            (click)="rejectFriend()">Reject</button>
+    <button mat-raised-button color="primary"
+            id="acceptButton"
+            (click)="acceptFriend()">Accept</button>
   </div>
 </mat-card>
