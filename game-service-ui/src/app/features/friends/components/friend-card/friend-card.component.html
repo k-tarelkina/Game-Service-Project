@@ -1,7 +1,8 @@
 <mat-card *ngIf="friendRecord && friendRecord.friend">
-  <p>{{friendRecord.friend.username}}</p>
+  <p id="friend-username">{{friendRecord.friend.username}}</p>
   <ng-container [ngSwitch]="friendRecord.status">
-    <p *ngSwitchCase="'PENDING'" class="actions">
+    <p class="actions"
+       *ngSwitchCase="'PENDING'">
       PENDING
     </p>
     <button mat-button color="warn"

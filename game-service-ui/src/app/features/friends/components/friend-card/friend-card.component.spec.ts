@@ -1,7 +1,12 @@
-import {ComponentFixture, TestBed, ComponentFixtureAutoDetect} from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  ComponentFixtureAutoDetect, waitForAsync,
+} from '@angular/core/testing';
 import {FriendCardComponent} from './friend-card.component';
-import {of} from 'rxjs';
-import {FriendsService} from '../../../../core/services/friends-service/friends.service';
+import {
+  FriendsService,
+} from '../../../../core/services/friends-service/friends.service';
 
 describe('FriendCardComponent', () => {
   let component: FriendCardComponent;
@@ -23,8 +28,7 @@ describe('FriendCardComponent', () => {
           useValue: true,
         },
       ],
-    })
-        .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -37,59 +41,123 @@ describe('FriendCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render paragraph with "PENDING" text if the request status is PENDING', () => {
-    component.friendRecord = {
-      friend: {
-        _id: '_id',
-        username: 'username',
-      },
-      status: 'PENDING',
+  it('should render friend username', () => {
+    const friend = {
+      _id: '_id',
+      username: 'username',
     };
-    fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector(actionsCSSClass);
-    expect(element).toBeInstanceOf(HTMLParagraphElement);
-    expect(element.textContent.trim()).toEqual('PENDING');
-  });
-
-  it('should render "Remove friend" button if the request status is ACCEPTED', () => {
     component.friendRecord = {
-      friend: {
-        _id: '_id',
-        username: 'username',
-      },
-      status: 'ACCEPTED',
-    };
-    fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector(actionsCSSClass);
-    expect(element).toBeInstanceOf(HTMLButtonElement);
-    expect(element.textContent.trim()).toEqual('Remove friend');
-  });
-
-  it('should render "Add friend" button if the request status is EMPTY', () => {
-    component.friendRecord = {
-      friend: {
-        _id: '_id',
-        username: 'username',
-      },
+      friend,
       status: 'EMPTY',
     };
     fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector(actionsCSSClass);
-    expect(element).toBeInstanceOf(HTMLButtonElement);
-    expect(element.textContent.trim()).toEqual('Add friend');
+    const element = fixture.nativeElement.querySelector('#friend-username');
+    expect(element.textContent).toContain(friend.username);
   });
 
-  it('should render "Add friend" button if the request status is REJECTED', () => {
-    component.friendRecord = {
-      friend: {
-        _id: '_id',
-        username: 'username',
-      },
-      status: 'REJECTED',
-    };
-    fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector(actionsCSSClass);
-    expect(element).toBeInstanceOf(HTMLButtonElement);
-    expect(element.textContent.trim()).toEqual('Add friend');
-  });
+  it('should render element with "PENDING" text if the request status is PENDING',
+      () => {
+        component.friendRecord = {
+          friend: {
+            _id: '_id',
+            username: 'username',
+          },
+          status: 'PENDING',
+        };
+        fixture.detectChanges();
+        const element = fixture.nativeElement.querySelector(actionsCSSClass);
+        expect(element).toBeInstanceOf(HTMLElement);
+        expect(element.textContent).toContain('PENDING');
+      });
+
+  it('should render "Remove friend" button if the request status is ACCEPTED',
+      () => {
+        component.friendRecord = {
+          friend: {
+            _id: '_id',
+            username: 'username',
+          },
+          status: 'ACCEPTED',
+        };
+        fixture.detectChanges();
+        const element = fixture.nativeElement.querySelector(actionsCSSClass);
+        expect(element).toBeInstanceOf(HTMLButtonElement);
+        expect(element.textContent).toContain('Remove friend');
+      });
+
+  it('should render "Add friend" button if the request status is EMPTY',
+      () => {
+        component.friendRecord = {
+          friend: {
+            _id: '_id',
+            username: 'username',
+          },
+          status: 'EMPTY',
+        };
+        fixture.detectChanges();
+        const element = fixture.nativeElement.querySelector(actionsCSSClass);
+        expect(element).toBeInstanceOf(HTMLButtonElement);
+        expect(element.textContent).toContain('Add friend');
+      });
+
+  it('should render "Add friend" button if the request status is REJECTED',
+      () => {
+        component.friendRecord = {
+          friend: {
+            _id: '_id',
+            username: 'username',
+          },
+          status: 'REJECTED',
+        };
+        fixture.detectChanges();
+        const element = fixture.nativeElement.querySelector(actionsCSSClass);
+        expect(element).toBeInstanceOf(HTMLButtonElement);
+        expect(element.textContent).toContain('Add friend');
+      });
+
+  it('should call #addFriendRequestFromUser from FriendsService on "Add" button click',
+      waitForAsync(async () => {
+        const friend = {
+          _id: '_id',
+          username: 'username',
+        };
+        component.friendRecord = {
+          friend,
+          status: 'EMPTY',
+        };
+        fixture.detectChanges();
+
+        const addButton = fixture.nativeElement
+            .querySelector(actionsCSSClass);
+        addButton.click();
+
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        expect(friendsSpy.addFriendRequestFromUser)
+            .toHaveBeenCalledWith(friend._id);
+      }));
+
+  it('should call #deleteFriend from FriendsService on "Remove" button click',
+      waitForAsync(async () => {
+        const friend = {
+          _id: '_id',
+          username: 'username',
+        };
+        component.friendRecord = {
+          friend,
+          status: 'ACCEPTED',
+        };
+        fixture.detectChanges();
+
+        const removeButton = fixture.nativeElement
+            .querySelector(actionsCSSClass);
+        removeButton.click();
+
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        expect(friendsSpy.deleteFriend)
+            .toHaveBeenCalledWith(friend._id);
+      }));
 });

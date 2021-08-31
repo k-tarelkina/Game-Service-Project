@@ -67,7 +67,7 @@ describe('SignInFormComponent', () => {
         expect(component.loginGroup.value.password).toEqual(password);
       }));
 
-  it('should call login method of AuthService on submit',
+  it('should call #login from AuthService on submit',
       waitForAsync(async () => {
         const email = 'email@email.com';
         emailInput.value = email;
