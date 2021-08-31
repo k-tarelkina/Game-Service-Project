@@ -11,9 +11,6 @@ describe('FriendsService', () => {
   const httpSpy = jasmine.createSpyObj('HttpService',
       ['get', 'put', 'patch', 'delete']);
   httpSpy.get.and.returnValue(of([]));
-  httpSpy.put.and.returnValue(of({}));
-  httpSpy.patch.and.returnValue(of({}));
-  httpSpy.delete.and.returnValue(of({}));
   const FRIENDS_URL = '/api/users/me/friends';
 
   beforeEach(() => {
@@ -35,7 +32,7 @@ describe('FriendsService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('get friends', () => {
+  describe('getting friends', () => {
     it('#getFriendsRequestsToUser should call #get from HttpService with appropriate params',
         () => {
           service.getFriendsRequestsToUser();
@@ -69,9 +66,10 @@ describe('FriendsService', () => {
         });
   });
 
-  describe('add friends', () => {
+  describe('adding friends', () => {
     it('#addFriendRequestFromUser should call #put from HttpService on /api/users/me/friends/:id',
         () => {
+          httpServiceSpy.put.and.returnValue(of({}));
           const friendId = 'id';
           service.addFriendRequestFromUser(friendId);
           expect(httpServiceSpy.put)
@@ -80,6 +78,7 @@ describe('FriendsService', () => {
 
     it('#acceptFriendRequest should call #patch from HttpService with appropriate params',
         () => {
+          httpServiceSpy.patch.and.returnValue(of({}));
           const friendId = 'id';
           service.acceptFriendRequest(friendId);
           expect(httpServiceSpy.patch)
@@ -89,9 +88,10 @@ describe('FriendsService', () => {
         });
   });
 
-  describe('delete friends', () => {
+  describe('deleting friends', () => {
     it('#deleteFriend should call #delete from HttpService on /api/users/me/friends/:id',
         () => {
+          httpServiceSpy.delete.and.returnValue(of({}));
           const friendId = 'id';
           service.deleteFriend(friendId);
           expect(httpServiceSpy.delete)

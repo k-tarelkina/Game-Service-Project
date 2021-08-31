@@ -102,8 +102,10 @@ describe('AuthService', () => {
     });
   });
 
-  it('#updateUser should call PATCH with user datas', () => {
-    service.updateUser(user);
-    expect(httpServiceSpy.patch).toHaveBeenCalledWith(CURRENT_USER_URL, user);
+  describe('update', () => {
+    it('#updateUser should call PATCH with user datas', () => {
+      service.updateUser(user);
+      expect(httpServiceSpy.patch).toHaveBeenCalledWith(CURRENT_USER_URL, user);
+    });
   });
 });

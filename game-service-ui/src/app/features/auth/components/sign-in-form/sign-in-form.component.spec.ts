@@ -39,93 +39,103 @@ describe('SignInFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have empty initial values', () => {
-    const initValues = {
-      email: '',
-      password: '',
-    };
-    expect(component.loginGroup.value).toEqual(initValues);
+  describe('FormGroup', () => {
+    it('should have empty initial values', () => {
+      const initValues = {
+        email: '',
+        password: '',
+      };
+      expect(component.loginGroup.value).toEqual(initValues);
+    });
+
+    describe('binding FormGroup to the template', () => {
+      it('should correctly bind email form control to the form input',
+          waitForAsync(async () => {
+            const email = 'email@email.com';
+            emailInput.value = email;
+            emailInput.dispatchEvent(new Event('input'));
+            await fixture.whenStable();
+            fixture.detectChanges();
+            expect(component.loginGroup.value.email).toEqual(email);
+          }));
+
+      it('should correctly bind password form control to the form input',
+          waitForAsync(async () => {
+            const password = 'password';
+            passwordInput.value = password;
+            passwordInput.dispatchEvent(new Event('input'));
+            await fixture.whenStable();
+            fixture.detectChanges();
+            expect(component.loginGroup.value.password).toEqual(password);
+          }));
+    });
   });
 
-  it('should correctly bind email form control to the form input',
-      waitForAsync(async () => {
-        const email = 'email@email.com';
-        emailInput.value = email;
-        emailInput.dispatchEvent(new Event('input'));
-        await fixture.whenStable();
-        fixture.detectChanges();
-        expect(component.loginGroup.value.email).toEqual(email);
-      }));
+  describe('submit', () => {
+    it('should call #login from AuthService on submit',
+        waitForAsync(async () => {
+          const email = 'email@email.com';
+          emailInput.value = email;
+          emailInput.dispatchEvent(new Event('input'));
 
-  it('should correctly bind password form control to the form input',
-      waitForAsync(async () => {
-        const password = 'password';
-        passwordInput.value = password;
-        passwordInput.dispatchEvent(new Event('input'));
-        await fixture.whenStable();
-        fixture.detectChanges();
-        expect(component.loginGroup.value.password).toEqual(password);
-      }));
+          const password = 'password';
+          passwordInput.value = password;
+          passwordInput.dispatchEvent(new Event('input'));
 
-  it('should call #login from AuthService on submit',
-      waitForAsync(async () => {
-        const email = 'email@email.com';
-        emailInput.value = email;
-        emailInput.dispatchEvent(new Event('input'));
+          await fixture.whenStable();
+          fixture.detectChanges();
 
-        const password = 'password';
-        passwordInput.value = password;
-        passwordInput.dispatchEvent(new Event('input'));
+          submitButton.click();
 
-        await fixture.whenStable();
-        fixture.detectChanges();
+          await fixture.whenStable();
+          fixture.detectChanges();
 
-        submitButton.click();
+          expect(authSpy.login).toHaveBeenCalledWith(email, password);
+        }));
 
-        await fixture.whenStable();
-        fixture.detectChanges();
+    describe('disabling submit button', () => {
+      it('should disable submit button if email input is incorrect',
+          waitForAsync(async () => {
+            emailInput.value = 'incorrectEmail';
+            emailInput.dispatchEvent(new Event('input'));
+            await fixture.whenStable();
+            fixture.detectChanges();
+            expect(submitButton.disabled).toBeTrue();
+          }));
 
-        expect(authSpy.login).toHaveBeenCalledWith(email, password);
-      }));
+      it('should disable submit button if email input is empty',
+          waitForAsync(async () => {
+            emailInput.value = '';
+            emailInput.dispatchEvent(new Event('input'));
+            await fixture.whenStable();
+            fixture.detectChanges();
+            expect(submitButton.disabled).toBeTrue();
+          }));
 
-  it('should disable submit button if email input is incorrect',
-      waitForAsync(async () => {
-        emailInput.value = 'incorrectEmail';
-        emailInput.dispatchEvent(new Event('input'));
-        await fixture.whenStable();
-        fixture.detectChanges();
-        expect(submitButton.disabled).toBeTrue();
-      }));
+      it('should disable submit button if password input is empty',
+          waitForAsync(async () => {
+            passwordInput.value = '';
+            passwordInput.dispatchEvent(new Event('input'));
+            await fixture.whenStable();
+            fixture.detectChanges();
+            expect(submitButton.disabled).toBeTrue();
+          }));
+    });
+  });
 
-  it('should disable submit button if email input is empty',
-      waitForAsync(async () => {
-        emailInput.value = '';
-        emailInput.dispatchEvent(new Event('input'));
-        await fixture.whenStable();
-        fixture.detectChanges();
-        expect(submitButton.disabled).toBeTrue();
-      }));
+  describe('error handling', () => {
+    it('should set errorMessage to null if all of the inputs are correct',
+        waitForAsync(async () => {
+          emailInput.value = 'email@email.com';
+          emailInput.dispatchEvent(new Event('input'));
 
-  it('should disable submit button if password input is empty',
-      waitForAsync(async () => {
-        passwordInput.value = '';
-        passwordInput.dispatchEvent(new Event('input'));
-        await fixture.whenStable();
-        fixture.detectChanges();
-        expect(submitButton.disabled).toBeTrue();
-      }));
+          passwordInput.value = 'password';
+          passwordInput.dispatchEvent(new Event('input'));
 
-  it('should set errorMessage to null if all of the inputs are correct',
-      waitForAsync(async () => {
-        emailInput.value = 'email@email.com';
-        emailInput.dispatchEvent(new Event('input'));
+          await fixture.whenStable();
+          fixture.detectChanges();
 
-        passwordInput.value = 'password';
-        passwordInput.dispatchEvent(new Event('input'));
-
-        await fixture.whenStable();
-        fixture.detectChanges();
-
-        expect(submitButton.disabled).toBeFalse();
-      }));
+          expect(submitButton.disabled).toBeFalse();
+        }));
+  });
 });
